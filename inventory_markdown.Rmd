@@ -1,0 +1,776 @@
+---
+title: "Data Inventory Script"
+author: "L. Patterson"
+date: "August, 2019"
+output: 
+  html_document:
+    toc: true
+    theme: united
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<style type="text/css">
+  body{ /* Normal */
+    font-family: Calibri;
+    font-size: 15pt;
+  }
+</style>
+
+<br /><br />
+
+# Read in Data
+
+The following script can be run in R to generate the tables and graphs observed in the data inventory website: `LINK GOES HERE`
+ 
+
+```{r libs, message=FALSE, warning=FALSE}
+#Load in libraries
+library(dplyr); library(magrittr); library(tidyr);
+library(plotly); library(ggplot2); library(tidyverse); library(readxl); #in tidyverse
+library(visNetwork);
+
+#removes anything stored in memory
+rm(list=ls())
+
+#Set up directories. swd is the main directory where the spreadsheets are located. You may have multiple inventories in different folders. Here, we have inventories for the federal government and three states. 
+
+#main directory  *** USER INPUT REQUIRED HERE ***
+swd = "C:\\Users\\DIRECTORY PATH TO INVENTORY FOLDER\\"
+folderName <- "federal\\";   #federal, ca, tx, nc
+fileName <- "Federal";       #Federal, CA, TX, NC
+
+#Load in the individual tabs on the worksheets
+#paste0 concatenates the working directory, folder, filenames, etc. to load the excel spreadsheet. 
+orgNodes <- read_excel(paste0(swd,folderName,fileName,"_DataInventory.xlsx"), sheet="orgNodes")
+
+orgEdges <- read_excel(paste0(swd,folderName,fileName,"_DataInventory.xlsx"), sheet="orgEdges") #this is optional to create in excel or in R
+
+platformNodes <- read_excel(paste0(swd,folderName,fileName,"_DataInventory.xlsx"), sheet="platformNodes")
+
+dataNodes <- read_excel(paste0(swd,folderName,fileName,"_DataInventory.xlsx"), sheet="dataNodes")
+
+dataNodeTypes <- read_excel(paste0(swd,folderName,fileName,"_DataInventory.xlsx"), sheet="dataNodeTypes");  
+  #remove notes and extraneous columns
+  dataNodeTypes <- dataNodeTypes[,c(1:9)]
+
+dataEdges <- read_excel(paste0(swd,folderName,fileName,"_DataInventory.xlsx"), sheet="dataEdges") # this is optional to create in excel or in R
+
+```
+
+<br />
+
+# Create Edge Tables
+The `orgEdges` and `dataEdges` worksheets can be manually create or created in R. The following scripts will create the edge files if they have not already been generated. 
+
+```{r createEdges}
+#########################################################################################
+#Create orgEdges Table 
+#########################################################################################
+#create data frame
+lastRow <- dim(orgNodes)[1]
+orgEdges2 <- as.data.frame(matrix(nrow=lastRow-1, ncol=2));    
+	colnames(orgEdges2) <- c("from","to");
+
+#populate first row
+orgEdges2$from <- orgNodes[c(2:lastRow),]$entityIDAbove
+orgEdges2$to <- orgNodes[c(2:lastRow),]$entityID
+
+#Sort org edges regardless
+orgEdges <- orgEdges %>% arrange(from,to) %>% as.data.frame()
+head(orgEdges)
+```
+
+<br />
+
+```{r createDataEdges}
+#########################################################################################
+#Create dataEdges Table
+#########################################################################################
+#create data frame
+dataEdges <- as.data.frame(matrix(nrow=dim(dataNodeTypes)[1], ncol=2));    colnames(dataEdges) <- c("from","to");
+#populate first row
+dataEdges$from <- dataNodeTypes$platformID;
+#populate the to column 
+dataEdges$to <- dataNodeTypes$dataID
+#remove duplicates if any and sort dataEdges
+dataEdges <- dataEdges %>% distinct(from,to) %>% arrange(from, to) %>% as.data.frame();
+head(dataEdges)
+```
+
+<br />
+
+# Create Organizational Network
+
+The following script will create a simple heirarchy of the organization. The organization can be changed to display those with a specific purpose by sub-setting. An example is provided below.
+```{r createheirarch, message=FALSE, warning=FALSE}
+# create nodes in format
+nodes <- as.data.frame(matrix(nrow=dim(orgNodes)[1],ncol=0))
+  nodes$id <- orgNodes$entityID;
+  nodes$label <- gsub(" ", "\n", orgNodes$entity);
+  nodes$title <- nodes$label;
+  nodes$operational <- orgNodes$operational;
+  nodes$decision <- orgNodes$decision;
+  nodes$regulatory <- orgNodes$regulatory;
+  nodes$research <- orgNodes$research;
+
+  nodes$shape <- "square";
+  nodes$color <- "darkgray";
+  nodes$shadow <- FALSE;
+visNetwork(nodes, orgEdges, main="Organizational Layout", width="800px", height="400px") %>% visHierarchicalLayout()
+
+```
+
+<br />
+
+```{r createheirarchSubset}
+#Create network showing regulatory data
+nodes.Reg <- subset(nodes, regulatory=="Yes");
+edges.Reg <- orgEdges[orgEdges$from %in% nodes.Reg$id,]
+visNetwork(nodes.Reg, edges.Reg, main="Regulatory Organizations") %>% visHierarchicalLayout()
+```
+
+
+# Create network for data platforms
+
+This code will create a file used to draw the platform network. 
+
+```{r createdataframe}
+####################################################################################################################################
+#combine platformNodes and dataNodes into a single file for javascript
+####################################################################################################################################
+#create dataframe
+platformNodes$group <- "hub";
+comboNodes <- platformNodes %>% as.data.frame();
+  start <- dim(comboNodes)[1]+1;     
+  end <- dim(dataNodes)[1]+start-1; 
+comboNodes <- rbind(comboNodes, comboNodes[c(1:dim(dataNodes)[1]),]);
+comboNodes[c(start:end),] <- NA
+
+#create new ids
+comboIDs <- c(platformNodes$platformID,dataNodes$dataID)
+comboNodes$platformID <- comboIDs;
+  
+#create new platform names
+comboNames <- c(platformNodes$platform, dataNodes$dataGroup)
+comboNodes$platform <- comboNames;
+
+#create new web labels
+comboLabel <- c(platformNodes$webLabel, dataNodes$dataCategory)
+comboNodes$webLabel <- comboLabel;
+
+#create new groups
+comboGroup <- c(platformNodes$group, dataNodes$dataCategory)
+comboNodes$group <- comboGroup;
+
+#Count number of occurrences --- sets the size of the nodes
+comboNodes$count = 5;
+toCount = table(dataEdges$to) %>% as.data.frame(); 
+  #toCount;
+comboNodes <- merge(comboNodes, toCount, by.x="platformID", by.y="Var1", all = TRUE)
+  comboNodes$count = ifelse(comboNodes$group != "hub" & is.na(comboNodes$Freq)==TRUE, 0, comboNodes$count)
+  comboNodes$count = ifelse(is.na(comboNodes$Freq)==TRUE, comboNodes$count, comboNodes$Freq)
+#comboNodes$count = comboNodes$count+5;
+comboNodes <- comboNodes %>% select(-Freq)
+#head(comboNodes);
+```
+
+<br />
+
+This code will create a file used to draw the platform network. 
+```{r drawnetwork, message=FALSE, warning=FALSE}
+# create nodes in format
+nodesP <- as.data.frame(matrix(nrow=dim(comboNodes)[1],ncol=0))
+  nodesP$id <- comboNodes$platformID;
+  #nodesP$label <- gsub(" ", "\n", comboNodes$webLabel);
+  nodesP$title = ifelse(comboNodes$group=="hub", paste0("<p style='color: black';><strong>", comboNodes$webLabel, "</strong></p>"), 
+                                                        paste0("<p style='color: black';><strong>", comboNodes$platform, "</strong></p>"))
+    nodesP[,c(3:16)] <- comboNodes[,c(10:23)]
+
+  nodesP$shape <- ifelse(nodesP$group=="hub","square","triangle");
+  nodesP$color <- ifelse(nodesP$group=="hub","darkgray","red");
+    nodesP$color <- ifelse(nodesP$group=="Quality","purple",nodesP$color);
+    nodesP$color <- ifelse(nodesP$group=="Quantity","lightskyblue",nodesP$color);
+    nodesP$color <- ifelse(nodesP$group=="Use","seagreen",nodesP$color);
+  nodesP$size <- nodesP$count*3.5;
+  
+#create edges and format
+  edgesD <- merge(dataEdges, nodesP[,c("id","color")], by.x="to", by.y="id")
+  edgesD$width <- 2
+  
+#draw network    
+visNetwork(nodesP, edgesD, main = "Network of Platforms and Data Types", height="600px", width="600px") 
+
+```
+
+<br />
+Similarly, the nodes can be highlighted and the graph redrawn based on your interest. The example below will show how. More complicated parsing of data can be found in the scorecard section below.
+```{r subsetdataframe, message=FALSE, warning=FALSE}
+#select those hubs that provide glossaries for their data.
+unique(nodesP$dataDefinitions)
+nodesPHigh <- nodesP;
+nodesPHigh$color <- ifelse(nodesPHigh$dataDefinitions=="Yes" & nodesPHigh$group=="hub", "goldenrod", nodesPHigh$color);
+
+
+#redraw network
+visNetwork(nodesPHigh, edgesD, main = "Highlight Platforms with Data Glossaries", height="600px", width="600px") %>% visLayout(randomSeed = 12) # to have always the same network     
+```
+
+<br />
+
+# Create Heatmap
+
+Below is the code to create a heatmap table. The table will then be visualized.
+``` {r heatmap}
+####################################################################################################################################
+#Create heatmap table
+####################################################################################################################################
+#create data frame
+heatmap <- as.data.frame(matrix(nrow=dim(platformNodes)[1], ncol=(3+dim(dataNodes)[1])));
+
+#create column names from dataNodes
+heatmapColNames <- c(str_replace_all(dataNodes$dataGroup, " ", ""))
+colnames(heatmap) <- c("platformID", "entityID", "platform", heatmapColNames)
+#colnames(heatmap) <- c("platformID", "entityID", "platform", "Built",	"Natural", "Quality", "Regulatory", "ET", "ExtremeEvents", "GlacialandSnow",
+#                       "Groundwater", "Meteorology", "Precipitation", "Reservoir", "Soil", "SurfaceWater", "Hydropower", "Irrigation", "Use", "Utilities", "ManagementPlans")
+
+#fill first three columns
+heatmap$platformID <- platformNodes$platformID;
+heatmap$entityID <- platformNodes$entityID;
+heatmap$platform <- platformNodes$heatmapLabel;
+
+#loop through and subset dataEdges based on platform ID
+for(i in 1:dim(platformNodes)[1]){
+  zt.edges <- subset(dataEdges, from==platformNodes$platformID[i]) %>% as.data.frame();
+  
+  #if the value exists, then fill in with a 1 [row, col]
+  heatmap[i,4] <- ifelse(dim(subset(zt.edges, to=="d01"))[1]==1,1,0);          heatmap[i,5] <- ifelse(dim(subset(zt.edges, to=="d02"))[1]==1,1,0);
+  heatmap[i,6] <- ifelse(dim(subset(zt.edges, to=="d03"))[1]==1,3,0);          heatmap[i,7] <- ifelse(dim(subset(zt.edges, to=="d04"))[1]==1,3,0);
+  heatmap[i,8] <- ifelse(dim(subset(zt.edges, to=="d05"))[1]==1,2,0);          heatmap[i,9] <- ifelse(dim(subset(zt.edges, to=="d06"))[1]==1,2,0);
+  heatmap[i,10] <- ifelse(dim(subset(zt.edges, to=="d07"))[1]==1,2,0);         heatmap[i,11] <- ifelse(dim(subset(zt.edges, to=="d08"))[1]==1,2,0);
+  heatmap[i,12] <- ifelse(dim(subset(zt.edges, to=="d09"))[1]==1,2,0);         heatmap[i,13] <- ifelse(dim(subset(zt.edges, to=="d10"))[1]==1,2,0);
+  heatmap[i,14] <- ifelse(dim(subset(zt.edges, to=="d11"))[1]==1,2,0);         heatmap[i,15] <- ifelse(dim(subset(zt.edges, to=="d12"))[1]==1,2,0);
+  heatmap[i,16] <- ifelse(dim(subset(zt.edges, to=="d13"))[1]==1,2,0);         heatmap[i,17] <- ifelse(dim(subset(zt.edges, to=="d14"))[1]==1,4,0);
+  heatmap[i,18] <- ifelse(dim(subset(zt.edges, to=="d15"))[1]==1,4,0);         heatmap[i,19] <- ifelse(dim(subset(zt.edges, to=="d16"))[1]==1,4,0);
+  heatmap[i,20] <- ifelse(dim(subset(zt.edges, to=="d17"))[1]==1,4,0);         heatmap[i,21] <- ifelse(dim(subset(zt.edges, to=="d18"))[1]==1,4,0);
+}
+
+#sort by entityID and then platform
+heatmap <- heatmap %>% arrange(platform)
+head(heatmap)
+```
+
+<br />
+
+Next, we will draw the heatmap using the plotly library.
+``` {r heatmapDraw, message=FALSE, warning=FALSE}
+#create color scheme
+cols <- c("0" = "lightgray", "1" = "red", "2" = "lightskyblue", "3" = "purple", "4" = "seagreen")
+
+data=as.matrix(t(heatmap[,c(4:21)]))
+plot_ly(x=heatmap$platform, y=colnames(heatmap[,c(4:21)]), z = data, type = "heatmap", color=c(0,1,2,3,4), colors=cols, showscale = FALSE, xgap=1, ygap=1) %>%
+    layout(
+        title = "<b>Heat map showing who provides what data</b>",
+        width=800,
+        xaxis=list(tickfont = list(size = 10), tickangle = 45),
+        margin = list(l = 60, r = 10, b = 100, t = 30, pad = 4),
+        showlegend = FALSE) 
+```
+
+<br />
+
+The following script summarizes the rows - showing the number of entities collecting each type of water data.
+``` {r heatmap_rowsum, message=FALSE, warning=FALSE}
+#summarize each of the columns
+#make presence a 1 (not 2, 3, or 4)
+heatmap2 <- heatmap
+heatmap2[heatmap2>=2] <- 1
+  
+nTypes <- heatmap2 %>%  summarise_if(is.numeric, sum, na.rm = TRUE)
+nTypes <- t(nTypes) %>% as.data.frame(); 
+#set row names to column
+colnames(nTypes) <- c("count")
+nTypes <- tibble::rownames_to_column(nTypes, "name")
+
+#graph - unfortunately plotly automatically re-orders charge alphabetically. It is a known bug in the program.
+plot_ly(
+  x = nTypes$name,
+  y = nTypes$count,
+  #color = nTypes$color,
+  marker = list(color = c("red","red","purple","purple","lightskyblue","lightskyblue","lightskyblue","lightskyblue","lightskyblue",
+                  "lightskyblue","lightskyblue","lightskyblue","lightskyblue","seagreen", "seagreen", "seagreen", "seagreen", "seagreen")),
+  type = "bar", 
+  orientation = "vertical"
+) %>%
+  layout(width=800,
+        title = "<b>What types of data are most often collected?</b>",
+        yaxis = list(title = 'Number of Entities Collecting Data'), 
+        xaxis=list(tickfont = list(size = 10), tickangle = 45),
+        margin = list(l = 50, r = 10, b = 90, t = 30, pad = 4),
+        showlegend = FALSE)
+````
+
+<br />
+
+The following script summarizes the rows - showing the number of entities collecting each type of water data.
+``` {r heatmap_colSum, message=FALSE, warning=FALSE}
+#summarize each of the rows
+nEntities <- heatmap %>% mutate(count = rowSums(.[4:21]))
+
+#graph - unfortunately plotly automatically re-orders charge alphabetically. It is a known bug in the program.
+plot_ly(
+  x = nEntities$platform,
+  y = nEntities$count,
+  #color = nTypes$color,
+  marker = list(color = c("navy")),
+  type = "bar", 
+  orientation = "vertical"
+) %>%
+  layout(width = 800,
+        title = "<b>Which platforms provide the greatest variety of water-related data?</b>",
+        yaxis = list(title = 'Number of Data Types Collected'), 
+        xaxis=list(tickfont = list(size = 10), tickangle = 45),
+        margin = list(l = 50, r = 30, b = 90, t = 30, pad = 4),
+        showlegend = FALSE)
+
+```
+
+
+<br />
+
+# Creating the score card metrics
+The following scripts will create scores based on discoverability, accessibility, and usability characteristics of the data platform. Descriptions and reasoning behind the scores can be found in the white paper <strong><a herf=>Inventory of Federal and State Water Data</a</strong>.
+
+## Discoverability - how easy was it to find data?
+``` {r easeDescover}
+#create score for ease of discovery ---------------------------------------------------------------------------
+scoreNodes <- platformNodes;
+#make all lowercase 
+scoreNodes$easeDiscover <- tolower(scoreNodes$easeDiscover)
+#find unique
+unique(scoreNodes$easeDiscover); #should be no, low, medium, or high
+#create score
+scoreNodes$scoreEaseDiscover = NA;
+  scoreNodes$scoreEaseDiscover = ifelse(scoreNodes$easeDiscover == "no" | scoreNodes$easeDiscover=="unknown" | scoreNodes$easeDiscover=="none", 0, scoreNodes$scoreEaseDiscover);
+  scoreNodes$scoreEaseDiscover = ifelse(scoreNodes$easeDiscover == "low", 1, scoreNodes$scoreEaseDiscover);
+  scoreNodes$scoreEaseDiscover = ifelse(scoreNodes$easeDiscover == "medium", 2, scoreNodes$scoreEaseDiscover);
+  scoreNodes$scoreEaseDiscover = ifelse(scoreNodes$easeDiscover == "high", 3, scoreNodes$scoreEaseDiscover);
+#check to see all values scored
+table(scoreNodes$scoreEaseDiscover, useNA = "ifany");  
+```
+
+<br />
+
+## Discoverability - how were data found?
+``` {r methodDescover}
+#create score for method to find data ---------------------------------------------------------------------------
+#make all lowercase
+scoreNodes$methodDiscover <- tolower(scoreNodes$methodDiscover);
+#find unique
+unique(scoreNodes$methodDiscover);  #should be some version of unknoqne, website, map, catalog
+#create score
+scoreNodes$scoreMethodDiscover = 0;
+#loop through and separate by "; " to find all the values. We will use the mean score.
+for (i in 1:dim(scoreNodes)[1]){
+  foo = as.list(strsplit(as.character(scoreNodes$methodDiscover[i]),"; "));
+  foo = as.data.frame(foo); colnames(foo) = "value";
+  foo$score = 0;
+  foo$score = ifelse(foo$value=="website",1, foo$score);
+  foo$score = ifelse(foo$value=="map",2, foo$score);
+  foo$score = ifelse(foo$value=="catalog",2, foo$score);
+  
+  scoreNodes$scoreMethodDiscover[i] = round(mean(foo$score),2);  
+}
+#check to make sure all nodes scored
+table(scoreNodes$scoreMethodDiscover, useNA = "ifany"); 
+```
+
+<br />
+
+## Accessibility - how easy was it to access data?
+``` {r easeAccess}
+# create score for ease of access  ---------------------------------------------------------------------------
+#make all lowercase
+scoreNodes$easeAccess <- tolower(scoreNodes$easeAccess);
+#find unique values
+unique(scoreNodes$easeAccess);  #yes, no, permission required, software required, training required, registration required
+#create score  
+scoreNodes$scoreEaseAccess = NA;
+  scoreNodes$scoreEaseAccess <- ifelse(scoreNodes$easeAccess=="unknown" | scoreNodes$easeAccess=="no", 0, scoreNodes$scoreEaseAccess)
+  scoreNodes$scoreEaseAccess <- ifelse(scoreNodes$easeAccess=="software required" | scoreNodes$easeAccess=="training required" | 
+                                           scoreNodes$easeAccess == "permission required", 1, scoreNodes$scoreEaseAccess)
+  scoreNodes$scoreEaseAccess <- ifelse(scoreNodes$easeAccess=="registration required", 3, scoreNodes$scoreEaseAccess)  #assumes permission granted
+  scoreNodes$scoreEaseAccess <- ifelse(scoreNodes$easeAccess=="yes", 3, scoreNodes$scoreEaseAccess)
+#Check to make sure all platforms are scored
+table(scoreNodes$scoreEaseAccess, useNA = "ifany"); 
+```
+
+
+<br />
+
+## Accessibility - how were data obtained?
+``` {r methodAccess}
+# create score for method of access ---------------------------------------------------------------------------
+#make all lower case
+scoreNodes$methodAccess <- tolower(scoreNodes$methodAccess)
+#find unique values
+unique(scoreNodes$methodAccess)
+#create score
+scoreNodes$scoreMethodAccess = NA;
+for (i in 1:dim(scoreNodes)[1]){
+  foo = as.list(strsplit(as.character(scoreNodes$methodAccess[i]),"; "));
+  foo = as.data.frame(foo); colnames(foo) = "value";
+    foo$score = NA;
+    foo$score = ifelse(foo$value=="unknown" | foo$value=="none",0, foo$score);
+    foo$score = ifelse(foo$value=="link to source" | foo$value=="copy and paste",1, foo$score);
+    foo$score = ifelse(foo$value=="individual export",2, foo$score);
+    foo$score = ifelse(foo$value=="batch export" | foo$value=="full export",3, foo$score);
+    foo$score = ifelse(foo$value=="ftp", 4, foo$score);
+    foo$score = ifelse(foo$value=="web services",5, foo$score);
+  
+  #take the maximum score
+  scoreNodes$scoreMethodAccess[i] = round(sum(foo$score)/dim(foo)[1],2);  
+}
+#check to make sure all platforms are scored
+table(scoreNodes$scoreMethodAccess, useNA = "ifany") 
+#subset(scoreNodes, is.na(scoreMethodAccess)==TRUE) %>% as.data.frame() #make sure not missing any
+
+
+```
+
+
+<br />
+
+## Interoperability - scoring data file formats - machine readable?
+``` {r fileFormat}
+#create score for file type  ---------------------------------------------------------------------------
+#make all lower case
+scoreNodes$fileFormat <- tolower(scoreNodes$fileFormat);
+#find unique values
+unique(scoreNodes$fileFormat)
+#create score
+scoreNodes$scoreFileFormat = NA
+#loop through and separate by ";" - will then take the mean of the file formats
+for (i in 1:dim(scoreNodes)[1]){
+  foo = as.list(strsplit(as.character(scoreNodes$fileFormat[i]),"; "));
+    foo = as.data.frame(foo); colnames(foo) = "value";
+  foo$score = NA;
+  foo$score = ifelse(foo$value=="unknown" | foo$value=="not applicable" | foo$value=="none",0, foo$score);
+  foo$score = ifelse(foo$value=="pdf" | foo$value=="png" | foo$value=="image" | foo$value=="jpg" | foo$value=="zip",1, foo$score);   #not sure where to put zip
+  
+  foo$score = ifelse(foo$value=="access" | foo$value=="excel" | foo$value=="raster" | foo$value=="shapefile",3, foo$score);
+  foo$score = ifelse(foo$value=="word" | foo$value=="geodatabase" | foo$value=="kmz" | foo$value=="software specific",3, foo$score);
+  
+  foo$score = ifelse(foo$value=="csv" | foo$value=="json" | foo$value=="txt" | foo$value == "xml",5, foo$score);
+  foo$score = ifelse(foo$value=="ascii" | foo$value=="netcdf" | foo$value=="html" | foo$value == "hdf5",5, foo$score);
+  foo$score = ifelse(foo$value=="kml" | foo$value=="geojson" | foo$value == "wml2" | foo$value == "rdf" | foo$value == "tsv",5, foo$score);
+  
+  scoreNodes$scoreFileFormat[i] = round(max(foo$score, is.na=FALSE),2);  
+}
+#check to make sure all platforms are scored
+table(scoreNodes$scoreFileFormat, useNA = "ifany") 
+#subset(scoreNodes, is.na(scoreFileFormat)==TRUE)  #if find a bug (such as a last ; with nothing after it - go into original file and fix)
+```
+
+
+<br />
+
+## Interoperability - scoring metadata file format - machine readable?
+``` {r metdataFormat}
+#create score for metadata -------------------------------------------------------------------------------
+#make all lower case
+scoreNodes$metadataFormat <- tolower(scoreNodes$metadataFormat)
+#find unique values
+unique(scoreNodes$metadataFormat)
+#create values for machine read and for non-machine read
+no.machineread <- c("in data", "pdf")
+prop.machineread <- c("word", "excel")
+yes.machineread <- c("xml","html","json","txt", "csv")
+#score
+scoreNodes$scoreMetadataFormat <- NA
+
+for (i in 1:dim(scoreNodes)[1]){
+  foo = as.list(strsplit(as.character(scoreNodes$metadataFormat[i]),"; "));
+  foo = as.data.frame(foo); colnames(foo) = "value";
+  foo$score = NA;
+  foo$score = ifelse(foo$value=="no" | foo$value=="broken link",0, foo$score);
+  foo$score = ifelse(foo$value %in% no.machineread, 1, foo$score);
+  foo$score = ifelse(foo$value %in% prop.machineread, 2, foo$score);
+  foo$score = ifelse(foo$value %in% yes.machineread, 3, foo$score);
+
+  scoreNodes$scoreMetadataFormat[i] = round(mean(foo$score, is.na=FALSE),2);  
+}
+scoreNodes$scoreMetadataFormat <- ifelse(scoreNodes$metadataFormat == "unknown" & scoreNodes$metadata=="No", 0, scoreNodes$scoreMetadataFormat)
+scoreNodes$scoreMetadataFormat <- ifelse(scoreNodes$metadataFormat == "unknown" & scoreNodes$metadata=="Yes", 1, scoreNodes$scoreMetadataFormat)
+scoreNodes$scoreMetadataFormat <- ifelse(scoreNodes$metadataFormat == "unknown" & scoreNodes$metadata=="Unknown", 1, scoreNodes$scoreMetadataFormat)
+
+#check to make sure all platforms are scored
+table(scoreNodes$scoreMetadataFormat, useNA = "ifany") 
+#subset(scoreNodes, is.na(scoreMetadataFormat)==TRUE)  #if find a bug (such as a last ; with nothing after it - go into original file and fix)
+```
+
+<br />
+
+## Interoperability - is there a glossary for the data?
+``` {r dataDefinitions}
+#create score for metadata -------------------------------------------------------------------------------
+#make all lower case
+scoreNodes$dataDefinitions <- tolower(scoreNodes$dataDefinitions)
+#find unique values
+unique(scoreNodes$dataDefinitions)
+#score
+scoreNodes$scoreDataDefinitions <- NA
+scoreNodes$scoreDataDefinitions <- ifelse(scoreNodes$dataDefinitions == "no" | scoreNodes$dataDefinitions=="unknown", 0, scoreNodes$scoreDataDefinitions)
+  scoreNodes$scoreDataDefinitions <- ifelse(scoreNodes$dataDefinitions == "some", 1, scoreNodes$scoreDataDefinitions)
+  scoreNodes$scoreDataDefinitions <- ifelse(scoreNodes$dataDefinitions == "yes", 2, scoreNodes$scoreDataDefinitions)
+table(scoreNodes$scoreDataDefinitions, useNA = "ifany") 
+```
+
+<br /> 
+
+## Interoperability - what types of metadata are provided?
+```{r metdataAttributes}
+#create score for metadata -------------------------------------------------------------------------------
+#metadata will be composed of four attributes - not the yes/no present question
+#make all lower case
+scoreNodes$metaAttributes <- tolower(scoreNodes$metaAttributes)
+#find unique values
+unique(scoreNodes$metaAttributes)
+#create score
+scoreNodes$scoreMetaAttributes = NA
+#loop through and separate by ";" - will then take the mean of the file formats
+for (i in 1:dim(scoreNodes)[1]){
+  foo = as.list(strsplit(as.character(scoreNodes$metaAttributes[i]),"; "));
+  foo = as.data.frame(foo); colnames(foo) = "value";
+  foo$score = NA;
+  foo$score = ifelse(foo$value=="unknown" | foo$value=="no",0, foo$score);
+  foo$score = ifelse(foo$value=="administrative" | foo$value=="structural" | foo$value=="descriptive", 1, foo$score);
+
+  scoreNodes$scoreMetaAttributes[i] = round(sum(foo$score, is.na=FALSE),2);  
+}
+
+#check to make sure platforms scored
+table(scoreNodes$scoreMetaAttributes, useNA = "ifany") 
+#subset(scoreNodes, is.na(scoreMetaAttributes)==TRUE)  #if find a bug (such as a last ; with nothing after it - go into original file and fix)
+```
+
+<br />
+
+## Interoperability - are metadata standards provided?
+```{r metadataStandards}
+#create score for metadata -------------------------------------------------------------------------------
+#metadata will be composed of four attributes - not the yes/no present question
+#make all lower case
+scoreNodes$metadataStandards <- tolower(scoreNodes$metadataStandards)
+#find unique values
+unique(scoreNodes$metadataStandards)
+#create score
+scoreNodes$scoreMetadataStandards <- NA
+  scoreNodes$scoreMetadataStandards <- ifelse(scoreNodes$metadataStandards == "no" | scoreNodes$metadataStandards=="unknown", 0, scoreNodes$scoreMetadataStandards)
+  scoreNodes$scoreMetadataStandards <- ifelse(scoreNodes$metadataStandards == "some", 1, scoreNodes$scoreMetadataStandards)
+  scoreNodes$scoreMetadataStandards <- ifelse(scoreNodes$metadataStandards == "yes", 2, scoreNodes$scoreMetadataStandards)
+
+#check to make sure platforms scored
+table(scoreNodes$scoreMetadataStandards, useNA = "ifany") #should have 18 for data nodes
+```
+
+
+<br />
+
+## Interoperability - how often are data being updated? 
+
+```{r timeliness}
+#create score for timeliness -------------------------------------------------------------------------------  
+#make all lower case
+scoreNodes$timeliness <- tolower(scoreNodes$timeliness)
+#find unique values
+unique(scoreNodes$timeliness)
+#create score
+scoreNodes$scoreTimeliness <- NA
+  scoreNodes$scoreTimeliness = ifelse(scoreNodes$timeliness=="unknown", 0, scoreNodes$scoreTimeliness);
+  scoreNodes$scoreTimeliness = ifelse(scoreNodes$timeliness=="irregular" | scoreNodes$timeliness=="varies", 1, scoreNodes$scoreTimeliness);
+  scoreNodes$scoreTimeliness = ifelse(scoreNodes$timeliness=="yearly or higher", 2, scoreNodes$scoreTimeliness);
+  scoreNodes$scoreTimeliness = ifelse(scoreNodes$timeliness=="monthly or higher" | scoreNodes$timeliness=="weekly or higher", 3, scoreNodes$scoreTimeliness);
+  scoreNodes$scoreTimeliness = ifelse(scoreNodes$timeliness=="daily or higher", 4, scoreNodes$scoreTimeliness);
+
+#check to make sure platforms scored
+table(scoreNodes$scoreTimeliness, useNA = "ifany"); #should have 18 for datanodes
+#subset(scoreNodes, is.na(timeliness)==TRUE)
+
+```
+
+
+<br />
+
+## Interoperability - how much of the data are made available?
+```{r POR}
+#create score for length of record -------------------------------------------------------------------------------  
+#make all lower case
+scoreNodes$lengthAvailable <- tolower(scoreNodes$lengthAvailable)
+#find unique values
+unique(scoreNodes$lengthAvailable)
+#set score
+scoreNodes$scoreLengthAvailable = NA;
+  scoreNodes$scoreLengthAvailable = ifelse(scoreNodes$lengthAvailable=="unknown",0, scoreNodes$scoreLengthAvailable);
+  scoreNodes$scoreLengthAvailable = ifelse(scoreNodes$lengthAvailable=="not applicable" | scoreNodes$lengthAvailable=="varies", 1, scoreNodes$scoreLengthAvailable);
+  scoreNodes$scoreLengthAvailable = ifelse(scoreNodes$lengthAvailable=="current only", 2, scoreNodes$scoreLengthAvailable);
+  scoreNodes$scoreLengthAvailable = ifelse(scoreNodes$lengthAvailable=="limited record", 3, scoreNodes$scoreLengthAvailable);
+  scoreNodes$scoreLengthAvailable = ifelse(scoreNodes$lengthAvailable=="period of record", 4, scoreNodes$scoreLengthAvailable);
+
+#check to make sur eplatforms scored
+table(scoreNodes$scoreLengthAvailable, useNA = "ifany"); #should have 18 for data nodes
+#subset(scoreNodes, is.na(lengthAvailable)==TRUE)
+
+```
+
+
+<br /> <br />
+
+# Setting the scores on a scale from 0 to 100 for comparability
+```{r normalizeScores}
+###############################################################################################################
+#total score for discoverable, accessible, usable
+scoreNodes$discoverTotal = scoreNodes$scoreEaseDiscover + scoreNodes$scoreMethodDiscover;
+scoreNodes$accessTotal = scoreNodes$scoreEaseAccess + scoreNodes$scoreMethodAccess;  
+scoreNodes$usableTotal = scoreNodes$scoreFileFormat + scoreNodes$scoreMetadataFormat + scoreNodes$scoreDataDefinitions + 
+                         scoreNodes$scoreMetaAttributes + scoreNodes$scoreMetadataStandards + scoreNodes$scoreTimeliness + 
+                         scoreNodes$scoreLengthAvailable
+scoreNodes$scoreTotal <- scoreNodes$discoverTotal + scoreNodes$accessTotal + scoreNodes$usableTotal;  
+  
+  
+#max score for each variable
+easeDiscoverMax = 3;   methodDiscoverMax = 2;     totalDiscoverMax = easeDiscoverMax + methodDiscoverMax;
+
+easeAccessMax = 3;     methodAccessMax = 5;       totalAccessMax = easeAccessMax + methodAccessMax;
+
+fileFormatMax = 5;     metadataFormatMax = 3;     dataDefinitionsMax = 2;    metaAttributesMax = 3;     metadataStandardsMax = 2;  
+  timelinessMax = 4;   lengthAvailableMax = 4;    
+  totalUseMax = fileFormatMax + metadataFormatMax + dataDefinitionsMax + metaAttributesMax + metadataStandardsMax + timelinessMax + lengthAvailableMax;
+
+totalMax = totalDiscoverMax + totalAccessMax + totalUseMax;
+#######################################################################################################################
+  
+  
+#######################################################################################################################
+# CONVERT SCORES TO PERCENT
+#######################################################################################################################
+percent = scoreNodes;
+  
+percent$scoreEaseDiscover = round(scoreNodes$scoreEaseDiscover/easeDiscoverMax*100,2);
+percent$scoreMethodDiscover = round(scoreNodes$scoreMethodDiscover/methodDiscoverMax*100,2);
+  
+percent$scoreEaseAccess = round(scoreNodes$scoreEaseAccess/easeAccessMax*100,2);
+percent$scoreMethodAccess = round(scoreNodes$scoreMethodAccess/methodAccessMax*100,2);
+  
+percent$scoreFileFormat = round(scoreNodes$scoreFileFormat/fileFormatMax*100,2);
+percent$scoreMetadataFormat = round(scoreNodes$scoreMetadataFormat/metadataFormatMax*100,2);
+percent$scoreDataDefinitions = round(scoreNodes$scoreDataDefinitions/dataDefinitionsMax*100,2);
+percent$scoreMetaAttributes = round(scoreNodes$scoreMetaAttributes/metaAttributesMax*100,2);
+percent$scoreMetadataStandards = round(scoreNodes$scoreMetadataStandards/metadataStandardsMax*100,2);
+
+percent$scoreTimeliness = round(scoreNodes$scoreTimeliness/timelinessMax*100,2);
+percent$scoreLengthAvailable = round(scoreNodes$scoreLengthAvailable/lengthAvailableMax*100,2);
+  
+percent$discoverTotal = round(scoreNodes$discoverTotal/totalDiscoverMax*100,2);
+percent$accessTotal = round(scoreNodes$accessTotal/totalAccessMax*100,2);
+percent$usableTotal = round(scoreNodes$usableTotal/totalUseMax*100,2);
+  
+percent$scoreTotal = round(scoreNodes$scoreTotal/totalMax*100, 2);
+#summary(percent)
+
+```
+
+<br />
+
+## Create a boxplot of the scores by categories of discoverability, accessibility, and usability
+```{r boxplotScoresDiscover, message=FALSE, warning=FALSE}
+#create a boxplot of discovaerability / findability
+plot_ly(y = percent$scoreEaseDiscover, x="Ease Discover", type = "box",  
+        boxpoints = "all", jitter = 0.3, pointpos = -1.8,
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Ease Discover") %>%
+  add_trace(y = percent$scoreMethodDiscover, x= "Method Discover",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Method Discover") %>% 
+  add_trace(y = percent$discoverTotal, x="Total Score",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Total Score") %>% 
+  layout(xaxis=list(tickfont = list(size = 12)), yaxis=list(title="Score (Percent)"),
+        margin = list(l = 50, r = 10, b = 30, t = 30, pad = 4),
+        title = "<b>Discoverability Scores</b>",
+        showlegend = FALSE)
+```
+
+
+```{r boxplotScoresAccess, message=FALSE, warning=FALSE}
+#create a boxplot of accessibility
+plot_ly(y = percent$scoreEaseAccess, x="Ease Access", type = "box",  
+        boxpoints = "all", jitter = 0.3, pointpos = -1.8,
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Ease Access") %>%
+  add_trace(y = percent$scoreMethodAccess, x= "Method Access",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Method Access") %>% 
+  add_trace(y = percent$accessTotal, x="Total Score",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Total Score") %>% 
+  layout(xaxis=list(tickfont = list(size = 12)), yaxis=list(title="Score (Percent)"),
+        margin = list(l = 50, r = 10, b = 30, t = 30, pad = 4),
+        title = "<b>Accessibility Scores</b>",
+        showlegend = FALSE)
+```
+
+
+```{r boxplotScoreInterop, message=FALSE, warning=FALSE}
+#create a boxplot of interoperability / usability
+plot_ly(y = percent$scoreFileFormat, x="File Format", type = "box",  
+        boxpoints = "all", jitter = 0.3, pointpos = -1.8,
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "File Format") %>%
+  add_trace(y = percent$scoreMetadataFormat, x= "Metadata Format",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Metadata Format") %>% 
+  add_trace(y = percent$scoreDataDefinitions, x= "Data Definitions",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Data Definitions") %>% 
+  add_trace(y = percent$scoreMetaAttributes, x= "Metadata Types",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Metadata Types") %>% 
+  add_trace(y = percent$scoreMetadataStandards, x= "Metadata Standards",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Metadata Standards") %>% 
+  add_trace(y = percent$scoreTimeliness, x= "Frequency of Updates",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Frequency of Updates") %>% 
+  add_trace(y = percent$scoreLengthAvailable, x= "Amount of Data",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Amount of Data") %>% 
+  add_trace(y = percent$usableTotal, x="Total Score",
+          marker = list(color = 'navy'),
+          line = list(color = 'navy'),
+          name = "Total Score") %>% 
+  layout(xaxis=list(tickfont = list(size = 12)), yaxis=list(title="Score (Percent)"),
+        margin = list(l = 50, r = 10, b = 30, t = 30, pad = 4),
+        title = "<b>Interoperability Scores</b>",
+        showlegend = FALSE)
+```
+
+<br />
+
+The files can be saved by `write.csv(percent, paste0(swd,folderName,fileName,"_percent.csv"), row.names=FALSE)`.
