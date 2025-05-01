@@ -1,0 +1,45 @@
+"platformID","entityID","platform","Built","Natural","Quality","Regulatory","Evapotranspiration","ExtremeEvents","GlacialandSnow","Groundwater","Meteorology","Precipitation","Reservoir","Soil","SurfaceWater","Hydropower","Irrigation","Use","Utilities","ManagementPlans"
+"p37","n29","DACS-Ag Statistics: Environmental Statistics",0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0,0
+"p38","n29","DACS-Ag Statistics: Weather and Crop Reports",0,0,0,0,0,2,0,0,2,2,0,2,0,0,0,0,0,0
+"p39","n32","DACS-Forest Service: Water Quality",1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p23","n15","DEQ-Biological Assessment: Ambient Lake Monitoring",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p32","n27","DEQ-Coastal: Coastal Management Science and Data",0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p28","n24","DEQ-EMLR: Dam Safety",1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0
+"p30","n24","DEQ-EMLR: NPDES MS4 Permitting",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p29","n24","DEQ-EMLR: Stormwater",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p31","n24","DEQ-EMLR: Water Supply Watershed Protection Program",1,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p17","n21","DEQ-Facilities: Collection System Facility Map",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p18","n18","DEQ-Non-discharge Permits: Non-Discharge Branch Map",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p20","n05","DEQ-NPDES: NPDES Compliance and Assistance Program",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p34","n02","DEQ-Online GIS: NCDEQ Online GIS",1,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p33","NA","DEQ-Permits and Rules: Application Tracker",0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p08","n06","DEQ-Public Water Supply: Drinking Water Watch",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p07","n06","DEQ-Public Water Supply: Sampling Status Report",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p25","n03","DEQ-Water Infrastructure: Environmental Documents",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p27","n03","DEQ-Water Infrastructure: Environmental Finance Center Reports",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p26","n03","DEQ-Water Infrastructure: Master Plan",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p11","n07","DEQ-Water Planning: Basin Planning",0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4
+"p12","n07","DEQ-Water Planning: Classifications, Standards, and Rules Review",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p13","n07","DEQ-Water Planning: Groundwater Management",0,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,4,0
+"p10","n07","DEQ-Water Planning: Local Water Supply Plans",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p14","n07","DEQ-Water Planning: Modeling & Assessment",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p19","n17","DEQ-Water Quality Permits: Transportation Permitting Branch",0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p16","n12","DEQ-Water Quality Regional Ops: Groundwater Protection",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p04","n04","DEQ-Water Resources: BasinWide Information Management System",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p03","n04","DEQ-Water Resources: Electronic Discharge Monitoring Report",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p02","n04","DEQ-Water Resources: Forms, Reports, and Publications",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p15","n04","DEQ-Water Resources: Groundwater",0,1,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0
+"p01","n04","DEQ-Water Resources: Online Document Library",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p06","n04","DEQ-Water Resources: Public Water Supply",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p05","n04","DEQ-Water Resources: Water Resources Hot Topics",0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p22","n43","DEQ-Water Sciences: Aquatic Toxicology Branch",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p24","n43","DEQ-Water Sciences: Ecosystems Branch",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p21","n43","DEQ-Water Sciences: Reports, Publications, and Data",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p09","n43","DEQ-Water Sciences: Watershed Assessment Team",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p40","NA","DOT-Env. Compliance: Environmental Compliance",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p35","n38","HHS-Water Protection: Non-Point Source Pollution Program",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p36","n34","IT-GIS Data: NC Onemap",1,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p42","n42","PS-Risk Management: Flood Inundation Mapping and Alert Network",0,0,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0
+"p43","n42","PS-Risk Management: Flood Risk Information System",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p41","n42","PS-Risk Management: Floodplain Mapping and Management",1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p44","n42","PS-Risk Management: Spatial Data Download",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0

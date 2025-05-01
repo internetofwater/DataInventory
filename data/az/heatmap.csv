@@ -1,0 +1,42 @@
+"platformID","entityID","platform","Built","Natural","Quality","Regulatory","Evapotranspiration","ExtremeEvents","GlacialandSnow","Groundwater","Meteorology","Precipitation","Reservoir","Soil","SurfaceWater","Hydropower","Irrigation","Use","Utilities","ManagementPlans"
+"p33","n25","ACA: Water Loss Control",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0
+"p31","n25","ACA: Water Rates Survey",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p09","n06","ADWR: AAWS Interactive Map",1,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p08","n05","ADWR: Adjudications",0,0,0,3,0,0,0,2,0,0,0,0,0,0,0,4,0,4
+"p11","n02","ADWR: ADWR Data Downloads",0,0,0,3,0,0,0,2,0,0,0,0,2,0,0,0,0,0
+"p03","n03","ADWR: AMA Data",0,0,0,0,0,0,0,2,0,0,2,0,2,0,0,4,4,0
+"p04","n03","ADWR: AMA Queries and Reports",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,4,4,4
+"p06","n03","ADWR: Annual Supply and Demand Dashboard",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p12","n07","ADWR: Colorado River Current Conditions Dashboard",0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,4,0,0
+"p14","n08","ADWR: Community Water Systems - Resources",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4
+"p07","n04","ADWR: Conservation Grants",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
+"p20","n14","ADWR: Developed Groundwater Models",1,1,0,0,0,0,0,2,0,0,0,0,0,0,0,4,0,0
+"p23","n16","ADWR: Documents and Reports",0,0,0,0,0,0,0,2,0,0,0,0,2,0,0,4,0,4
+"p16","n10","ADWR: Drought Conditions",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p18","n10","ADWR: Drought Dashboard",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p01","n02","ADWR: GIS Database",1,1,0,0,0,0,0,2,0,0,0,0,0,0,4,4,0,0
+"p05","n03","ADWR: Grandfathered Groundwater Rights Web Map",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p10","n06","ADWR: Groundwater Site Inventory",1,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p21","n14","ADWR: Hydrology eLibrary",0,0,0,0,0,0,0,2,0,2,0,0,2,0,0,4,0,0
+"p27","n19","ADWR: Interactive Map",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p02","n03","ADWR: Management Plans",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p26","n18","ADWR: Maps and Resources",1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p13","n07","ADWR: Operations and Planning",0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,4,0,4
+"p17","n10","ADWR: Preparedness Annual Reports",0,0,0,0,0,0,2,0,2,2,0,0,2,0,0,0,0,4
+"p15","n09","ADWR: Public Conservation Resources - Water Supply Resources",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p25","n17","ADWR: Queries and Reports",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p22","n15","ADWR: Recharge Reports",0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,4,0,0
+"p36","n27","AZCC: Wastewater",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p35","n27","AZCC: Water",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p38","n32","AZDEQ: Arizona Water Quality Map",0,0,3,3,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p42","n35","AZDEQ: Final Reports",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p46","n30","AZDEQ: Megaseach",1,0,3,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p45","n37","AZDEQ: NEMO Plans",0,1,3,0,0,0,0,0,0,2,0,2,2,0,0,0,0,4
+"p40","n33","AZDEQ: Publications",0,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p39","n29","AZDEQ: Records Center",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p37","n31","AZDEQ: Safe Drinking Water Information System Database (SDWIS)",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p43","n36","AZDEQ: TMDL Reports",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p44","n37","AZDEQ: TMDL Status and Plans",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p47","n30","AZDEQ: Water Quality Database",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p48","n42","AZDHS: Private Well Data",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p28","n20","AZWPF: Annual Reports",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4

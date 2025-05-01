@@ -1,0 +1,50 @@
+"platformID","entityID","platform","Built","Natural","Quality","Regulatory","Evapotranspiration","ExtremeEvents","GlacialandSnow","Groundwater","Meteorology","Precipitation","Reservoir","Soil","SurfaceWater","Hydropower","Irrigation","Use","Utilities","ManagementPlans"
+"p39","n13","DEQ: 2012 Integrated Report Assessment Database ",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p37","n13","DEQ: 2018/2020 Integrated Report Database",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p25","n13","DEQ: AWQMS",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p26","n12","DEQ: Drinking Water Protection Interactive Viewer",1,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p27","n13","DEQ: Facility Profiler-Lite",1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p35","n12","DEQ: Geographic Information Systems",1,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p28","n13","DEQ: La Pine Demonstration Project",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p36","n13","DEQ: Mapping and GIS Data",1,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p40","n13","DEQ: Past Integrated Reports",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p31","n13","DEQ: Source Water Protection",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4
+"p29","n13","DEQ: Stream Location Identification Tool",1,1,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p34","n12","DEQ: Toxics Monitoring Network Map",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p33","n13","DEQ: Wastewater Permits Reports Database",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p51","n26","DOGAMI: Interactive Maps and Geospatial Data",1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p43","n29","ODF: Maps & Data",0,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p42","n15","ODFW: Compass",0,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p38","n15","ODFW: Data Clearning House",1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p41","n15","ODFW: Oregon Fish Habitat Distribution and Barriers",1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p45","n20","OHA: Community Water",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p44","n20","OHA: Drinking Water Data Online",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p02","n28","Open Data: Oregon Spatial Data Library",1,1,3,0,0,2,0,0,2,2,0,2,0,0,0,0,0,0
+"p01","n27","Oregon: Open Data Portal",1,0,0,3,0,0,0,0,0,0,0,0,0,0,0,4,4,0
+"p50","n25","OSU: Corvallis Data",0,0,0,0,2,0,2,0,2,2,0,0,0,0,0,0,0,0
+"p49","n25","OSU: Historical Climate Data",0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0
+"p46","n23","OWEB: Investments",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p48","n23","OWEB: Oregon Explorer",1,1,3,0,0,2,2,0,0,0,0,0,0,0,0,0,0,0
+"p47","n23","OWEB: Oregon Watershed Restoration Inventory",1,1,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p07","n05","OWRD GWIS: Groundwater Information System",1,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p03","n04","OWRD: Dam Inventory Query",1,0,0,3,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p08","n02","OWRD: Data",1,0,0,3,0,2,0,2,0,0,2,0,2,4,0,4,0,4
+"p04","n03","OWRD: Document Vault",0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,4,0,0
+"p24","n06","OWRD: Drought Conditions",0,0,0,0,0,2,0,0,0,0,2,0,2,0,0,0,0,0
+"p05","n06","OWRD: Drought Status",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p22","n05","OWRD: Groundwater Information System Mapping Tool",0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p09","n04","OWRD: Historical Streamflow and Lake Level Data",0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0
+"p10","n04","OWRD: Hydroelectric Projects  Query",0,0,0,0,0,0,0,0,0,0,2,0,0,4,0,0,0,0
+"p12","n02","OWRD: Klamath Tribal Instream Claim Dashboard",0,0,0,3,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p13","n04","OWRD: Miscellaneous Streamflow Measurements",0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p14","n04","OWRD: Near Real Time Hydrographics Data",0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0
+"p23","n05","OWRD: Oregon Water & Monitoring Well Standard Repository",1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,4,0,0
+"p21","n02","OWRD: Publication and Reports",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p15","n03","OWRD: Water Availability Reporting System",0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,4,0,0
+"p16","n03","OWRD: Water Right Information Search (WRIS)",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p17","n03","OWRD: Water Right Place of Use Summary Report",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p18","n03","OWRD: Water Right Point of Diversion Summary Report",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p19","n03","OWRD: Water Rights Platcard Report",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p20","n03","OWRD: Water Use Report",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p11","n02","OWRD: Watermaster District 17 - Klamath Basin Status",0,0,0,3,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p06","n05","OWRD: Well Report Query",1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,4,0,0

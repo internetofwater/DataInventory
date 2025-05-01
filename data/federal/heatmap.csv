@@ -1,0 +1,57 @@
+"platformID","entityID","platform","Built","Natural","Quality","Regulatory","Evapotranspiration","ExtremeEvents","GlacialandSnow","Groundwater","Meteorology","Precipitation","Reservoir","Soil","SurfaceWater","Hydropower","Irrigation","Use","Utilities","ManagementPlans"
+"p02","n24","DHS-FEMA: Flood Map Service Center",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p01","n26","DHS-IP: HSIN-CI Dams Portal",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p03","n26","DHS-IP: IP Gateway",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p49","n08","DOC-NOAA: Climate Data Online",0,0,0,0,2,0,2,0,2,2,0,2,0,0,0,0,0,0
+"p55","n08","DOC-NOAA: National Water Model",0,1,0,0,0,0,2,0,0,2,0,2,2,0,0,0,0,0
+"p50","n08","DOC-NOAA: OneStop",0,0,3,0,0,0,2,0,0,2,0,0,2,0,0,0,0,0
+"p51","n09","DOC-NWS: Advanced Hydrologic Prediction Service",0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0
+"p52","n09","DOC-NWS: Climate Prediction Center",0,0,0,0,0,0,0,0,2,2,0,2,0,0,0,0,0,0
+"p53","n09","DOC-NWS: National Operational Hydrologic Remote Sensing Center",0,0,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0
+"p54","n09","DOC-NWS: Precipitation Frequency Data Server",0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0
+"p04","n11","DOD-NGIA: No Public Portal",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p05","n12","DOD-USACE: Corps CWMS",1,1,0,0,0,0,0,0,0,2,2,0,2,0,0,0,0,0
+"p07","n22","DOE-EIA: Renewable and Alternative Fuels",0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0
+"p08","n20","DOE-NREL: NREL Data Catalog",0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+"p09","n16","DOE-ORNL: HydroGIS Viewer",1,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0,0,0
+"p06","n13","DOE: Atmospheric Radiation Measurement",0,0,0,0,0,0,2,0,0,2,0,2,0,0,0,0,0,0
+"p10","n27","DOI-ACWI: National Groundwater Monitoring Network",0,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p12","n28","DOI-BoR: Agrimet",0,0,0,0,2,0,0,0,2,0,0,0,0,0,4,0,0,0
+"p11","n28","DOI-BoR: Hydromet",0,0,3,0,0,0,0,0,2,2,2,0,2,0,4,0,0,0
+"p13","n28","DOI-BoR: Reclamation Water Information System",0,0,3,0,2,0,2,0,2,2,2,0,2,4,4,4,0,0
+"p14","n29","DOI-FWS: National Wetlands Inventory",0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p15","n30","DOI-GS: GroundwaterWatch",0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p16","n30","DOI-GS: National Water Census Data Portal",0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,4,0,0
+"p17","n30","DOI-GS: National Water Information System",0,0,3,0,2,0,0,2,2,2,2,2,2,0,0,4,0,0
+"p23","n30","DOI-GS: NationalMap",1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p18","n30","DOI-GS: StreamStats",0,1,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0
+"p19","n30","DOI-GS: U.S. Water Monitor",0,0,0,0,0,0,2,2,0,0,2,0,2,0,0,0,0,0
+"p20","n30","DOI-GS: WaterAlert",0,0,3,0,2,0,0,2,2,2,2,2,2,0,0,0,0,0
+"p21","n30","DOI-GS: WaterQualityWatch",0,0,3,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p22","n30","DOI-GS: WaterWatch",0,0,3,0,0,2,0,0,0,0,0,0,2,0,0,0,0,0
+"p24","n36","EPA: ATTAINS",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p25","n36","EPA: ECHO",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p26","n36","EPA: EnviroAtlas",0,1,0,3,0,0,0,0,0,0,0,2,2,0,4,4,0,0
+"p27","n36","EPA: National Contaminant Occurrence Database",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p56","n36","EPA: SDWIS Federal Reports Search",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p29","n37","FGDC: GeoPlatform.Gov",0,0,3,3,0,0,0,0,2,2,0,0,2,0,0,0,0,0
+"p30","n38","GSA: Data.Gov",0,0,3,0,0,0,2,0,2,2,0,0,2,0,4,0,0,0
+"p32","n33","HHS-CDC: Data.CDC.Gov",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p31","n33","HHS: HealthData.Gov",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p33","n32","HUD: EGIS OpenData",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p44","nMix","Joint: Agricultural Weather Facility",0,0,0,0,0,2,0,0,2,2,0,2,0,0,0,0,0,0
+"p28","nMix","Joint: Water Quality Portal",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p34","n41","NASA-ESD: Alaska Satellite Facility DAAC",0,1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0
+"p35","n41","NASA-ESD: Earthdata Search",0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0
+"p41","n41","NASA-ESD: Giovanni",0,0,0,0,0,0,2,2,2,2,0,2,2,0,0,0,0,0
+"p37","n41","NASA-ESD: Global Hydrology Resource Center DAAC",0,0,0,0,0,2,2,0,2,2,0,0,0,0,0,0,0,0
+"p42","n41","NASA-ESD: Global Imagery Browse Services",0,0,0,0,0,0,2,0,2,2,0,2,0,0,0,0,0,0
+"p36","n41","NASA-ESD: Goddard Earth Sciences Data and Information Services Center",0,0,0,0,0,0,2,0,2,2,0,0,0,0,0,0,0,0
+"p38","n41","NASA-ESD: Land Processes DAAC",0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p39","n41","NASA-ESD: National Snow and Ice Data Center DAAC",0,0,0,0,0,0,2,0,2,2,0,2,0,0,0,0,0,0
+"p40","n41","NASA-ESD: Oak Ridge National Laboratory DAAC",0,0,0,0,0,0,2,0,2,2,0,2,2,0,0,0,0,0
+"p43","n41","NASA-ESD: Socioeconomic Data and Applications Data Center",1,0,0,0,0,2,0,0,2,0,0,0,0,0,0,0,0,0
+"p45","n42","TVA: River Forecast Center",0,0,3,0,0,0,0,0,0,2,2,0,2,4,0,0,0,0
+"p46","n03","USDA-ARS: Agricultural Research Database System",0,0,3,0,0,0,0,0,2,2,0,2,2,0,0,0,0,0
+"p47","n04","USDA-NASS: QuickStats",0,0,0,0,0,0,0,2,0,0,0,0,0,0,4,0,0,0
+"p48","n05","USDA-NRCS: National Water and Climate Center",0,0,0,0,0,0,2,0,2,2,2,2,2,0,0,0,0,0

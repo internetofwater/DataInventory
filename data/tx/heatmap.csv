@@ -1,0 +1,98 @@
+"platformID","entityID","platform","Built","Natural","Quality","Regulatory","Evapotranspiration","ExtremeEvents","GlacialandSnow","Groundwater","Meteorology","Precipitation","Reservoir","Soil","SurfaceWater","Hydropower","Irrigation","Use","Utilities","ManagementPlans"
+"p01","n02","Ag-Production Ag: The Water Source",0,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,0,0
+"p49","n44","ANAR-Reservoirs: Drought Information",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p51","n44","ANAR-Reservoirs: Reservoir Levels",0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0
+"p50","n44","ANAR-Reservoirs: Stream Gauges",0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p48","n42","ANAR-Water Delivery: Consumer Information",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p54","n50","BCRAGD-Flood Management: Rainfall and River Gauges",0,0,0,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0
+"p53","n46","BCRAGD-Groundwater Monitoring: Monitor Well Program",0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p55","n47","BCRAGD-Reservoirs: Medina Lake",0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0
+"p52","n49","BCRAGD-Water Quality Monitoring: In House Surface Water Quality Testing",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p58","n57","BRA-Clean Rivers Program: Basin Summary Report",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p57","n57","BRA-Clean Rivers Program: Brazos River Watershed Information Center",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p61","n51","BRA-Maps: Brazos River Authority Maps",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p59","n58","BRA-Water Supply: BrazosBasinNOW",0,0,0,0,0,0,0,0,0,2,2,0,2,0,0,0,0,0
+"p56","n53","BRA-Water Supply: Drought",0,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,0,4
+"p60","n53","BRA-Water Supply: Water Supply and Reservoir Data",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p65","n63","GBRA-Clean Rivers Program: Monitoring Sites Map",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p66","n59","GBRA-Consumer Confidence Reports: Consumer Confidence Reports",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p64","n62","GBRA-Water Resources Management: Basin Summary",0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0
+"p62","n62","GBRA-Water Resources Management: Rainfall Data",0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0
+"p63","n62","GBRA-Water Resources Management: Streamflow Data Map",0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p76","n77","LCRA-Dams and Hydro: Highland Lakes and Dams",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p73","n75","LCRA-River Operations: Flood Operations Report",0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0
+"p74","n75","LCRA-River Operations: River Operations Report",0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0
+"p79","n73","LCRA-Water Quality Protection: Colorado River Watch Network",0,0,3,0,0,0,0,0,2,2,0,0,2,0,0,0,0,0
+"p78","n73","LCRA-Water Quality Protection: LCRA Water Quality Data",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p77","n71","LCRA-Water Resource Planning: Water Supply",0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,4,0,0
+"p72","n68","LCRA-Water Surface Management: Hydromet",0,0,3,0,0,2,0,0,2,2,0,2,2,0,0,0,0,0
+"p75","n69","LCRA-Water Surface Management: River and Weather Conditions",0,0,0,0,0,0,0,0,2,2,2,0,2,0,0,0,0,0
+"p71","n69","LCRA-Water: LCRA Interactive Map",1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p69","n67","LNRA- Reservoir: Reservoir Data",0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,0,0,0
+"p70","n64","LNRA-Clean Rivers Program: Water Quality Database",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p68","n64","LNRA-Instrumentation and Electronics: Early Warning System",0,0,0,0,0,0,0,0,2,2,2,0,2,0,0,0,0,0
+"p67","n65","LNRA-Water Delivery: Lavaca Regional Water Planning Group",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p81","n81","NRA-CC Water Supply: Corpus Christi Water Supply",0,0,0,0,2,0,0,0,0,2,2,0,2,0,0,4,0,0
+"p80","n84","NRA-Clean Rivers Program: CRP SQWM Database",0,0,3,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0
+"p95","n123","PUC-Water: CCN Mapping Information",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p96","n123","PUC-Water: Interchange Filer",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p83","n84","RRA-Clean Rivers Program: CRP SQWM Database",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p82","n87","RRA-Utility Division: Drinking Water Reports",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p88","n91","SARA-Clean Rivers Program: SARA Water Quality Viewer",0,0,3,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p86","n91","SARA-Flood Management: SARA Floodplain Viewer",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p87","n94","SARA-Flood Management: SARA Risk MAP Viewer",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p89","n97","SJRA-Contrail System: Contrail System",0,0,3,0,0,0,0,0,2,2,2,0,2,0,0,0,0,0
+"p90","n100","SJRA-Groundwater Reduction Plan Division: GRP Raw Water Pumpage",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p91","n100","SJRA-Groundwater Reduction Plan Division: Monthly Operations Report",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p84","n88","SRA-Environmental Services Division: Monthly Water Quality Monitoring Reports",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p85","n88","SRA-Environmental Services Division: Sabine Basin Lake Levels and River Conditions",0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p22","n18","TCEQ-Clean Rivers Program: CRP Data Tool",1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p12","n16","TCEQ-Nonpoint Source Pollution: Watershed Protection Plans for Nonpoint Source Water Pollution",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p97","n09","TCEQ-Record Services: Purchase Data",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p20","n09","TCEQ-STEERS: State of Texas Environmental Electronic Reporting System",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p13","n17","TCEQ-Surface Water Quality Monitoring Program: Continuous Water Quality Monitoring Network",0,0,3,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p19","n17","TCEQ-Surface Water Quality Monitoring Program: Surface Water Quality Monitoring Information System",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p11","n15","TCEQ-TMDL: Segments with TMDLS",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p14","n11","TCEQ-Water Availability: Groundwater Contamination Viewer",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p15","n11","TCEQ-Water Availability: Pesticides and Groundwater",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p09","n11","TCEQ-Water Availability: Water Availability Models",1,1,0,0,0,0,0,0,0,0,0,0,2,0,0,4,0,0
+"p08","n11","TCEQ-Water Availability: Water Rights and Water Use Data",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p07","n13","TCEQ-Water Quality Planning: Drinking Water Watch",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p10","n14","TCEQ-Water Quality Standards: Texas Integrated Report of Surface Water Quality",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p21","n12","TCEQ-Water Quality: Status of Stormwater and Wastewater Applications and Specifications",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p18","n19","TCEQ-Water Supply: Compliance History Database",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p06","n19","TCEQ-Water Supply: Drinking Water",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p16","n19","TCEQ-Water Supply: List of Texas PWSs Limiting Water Use to Avoid Shortages",0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,4,0
+"p23","n19","TCEQ-Water Supply: Water District Database",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p17","n10","TCEQ-Water: Geographic Information Systems",1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p47","n121","TDIR-Statewide Data Coordination: Texas Open Data Portal",1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p46","n122","TGPC-Publications: TGCP Publications",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p05","n08","TPWD-River Studies: Reports on River Studies",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p04","n07","TPWD-Water Quality: Water Quality Related Reports",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p03","n06","TPWD-Water Quantity: Ecologically Significant Streams",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p02","n06","TPWD-Water Quantity: Studies of Priority Groundwater Management Areas",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p93","n105","TRA-Planning and Environmental Management: Lake Livingston Contrail System",0,0,0,0,0,0,0,0,0,2,2,0,2,0,0,0,0,0
+"p92","n105","TRA-Planning and Environmental Management: Maps and Data",0,1,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p43","n21","TSWCB-Flood Control Program: Flood Control Program",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p44","n22","TSWCB-Nonpoint Source Management: Watershed Protection Plans",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p28","n37","TWDB-Groundwater Monitoring: Groundwater Data Viewer",1,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p25","n37","TWDB-Groundwater Monitoring: Groundwater Database",0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,4
+"p33","n37","TWDB-Groundwater Monitoring: Submitted Drillers Reports Database",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p38","n32","TWDB-Innovative Water Technologies: Brackish Resources Aquifer Characterization System",0,1,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p39","n32","TWDB-Innovative Water Technologies: Desalination",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4
+"p40","n32","TWDB-Innovative Water Technologies: Water Reuse",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4
+"p26","n24","TWDB-Mapping: GIS Data",1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p37","n31","TWDB-Municipal Water Conservation: Historical Water Loss Audit and Conservation Annual Report Data",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p31","n27","TWDB-Regional Water Planning: Regional Water Planning Data",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
+"p36","n33","TWDB-Surface Water: Lake Surveys",0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0
+"p35","n35","TWDB-Surface Water: Precipitation and Lake Evaporation",0,0,0,0,2,0,0,0,0,2,2,0,0,0,0,0,0,0
+"p34","n33","TWDB-Surface Water: Texas Water Conditions Report",0,0,0,0,0,0,0,2,0,2,2,2,2,0,0,0,0,0
+"p30","n38","TWDB-Texas Natural Resources Information System: Geospatial Emergency Management Support System",1,0,0,0,0,2,0,0,2,2,2,0,2,0,0,0,0,0
+"p41","n38","TWDB-Texas Natural Resources Information System: Texas Natural Resources Information System",1,1,0,0,0,2,0,0,0,0,0,2,0,0,0,0,0,0
+"p27","n34","TWDB-TexMesonet: TexMesonet",0,0,0,0,0,0,0,0,2,2,0,2,2,0,0,0,0,0
+"p24","n24","TWDB-Water Data for Texas: Water Data for Texas",1,0,3,0,2,2,0,2,0,2,2,0,0,0,0,0,0,0
+"p29","n26","TWDB-Water Use Planning: Texas State Water Plan",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p32","n26","TWDB-Water Use: Historical Water Use Estimates",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0
+"p42","n24","TWDB-Water Use: Water Service Boundary Viewer",1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p45","n20","TWSCB-Agency Reports: Agency Reports",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p94","n108","UGRA: Current River Conditions",0,0,3,0,0,0,0,0,0,2,0,0,2,0,0,0,0,0

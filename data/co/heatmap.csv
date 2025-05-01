@@ -1,0 +1,37 @@
+"platformID","entityID","platform","Built","Natural","Quality","Regulatory","Evapotranspiration","ExtremeEvents","GlacialandSnow","Groundwater","Meteorology","Precipitation","Reservoir","Soil","SurfaceWater","Hydropower","Irrigation","Use","Utilities","ManagementPlans"
+"p10","n29","CDA: Agricultural Water Quality Database",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p01","n03","CDNR: Observations Data",0,0,0,0,0,0,2,0,2,2,0,0,0,0,0,0,0,0
+"p27","n23","CDPHE: Abandoned Mines Water Quality Study",0,0,3,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p15","n23","CDPHE: Animas River reports, data and maps",0,0,3,0,0,0,0,0,0,0,0,2,0,0,0,0,4,0
+"p28","n23","CDPHE: Aquatic pesticides permit",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p06","n23","CDPHE: Clean Water - GIS Maps",0,1,3,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p26","n23","CDPHE: Clean water active permits",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p13","n21","CDPHE: Colorado Environmental Records",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p25","n26","CDPHE: Colorado hazadous waste site assessments",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p32","n24","CDPHE: Consumer Confidence Rule",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p12","n24","CDPHE: Drinking water compliance assurance",0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p35","n21","CDPHE: Environmental Data",0,0,3,3,0,2,0,0,2,2,0,0,0,0,0,0,4,0
+"p29","n23","CDPHE: Measurable Results Program",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p30","n23","CDPHE: On Site Wastewater treatment systems",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p05","n21","CDPHE: Open Data",0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0
+"p31","n24","CDPHE: PFAS 2020 Sampling Project",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p17","n23","CDPHE: Total Maximum Daily Loads (TMDLs)",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p14","n23","CDPHE: Water quality 10-year roadmap",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p09","n23","CDPHE: Water Quality Planning",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p07","n23","CDPHE: Watershed Rapid Assessment Program",1,1,3,3,0,2,2,0,2,2,0,2,2,0,0,4,0,0
+"p33","n24","CDPHE: Web Public Water System and Violation",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p03","n08","CDWR: CDSS Data and Tools",1,1,0,3,2,0,2,2,2,2,0,0,2,0,4,0,0,0
+"p19","n02","CDWR: Colorado's Water Plan",1,0,0,0,0,0,2,2,2,2,2,0,2,0,4,4,0,4
+"p50","n08","CDWR: GIS Data",1,1,0,0,2,0,0,0,2,2,0,0,2,0,4,0,0,0
+"p04","n08","CDWR: Imaged Documents",0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,4,0,4
+"p51","n08","CDWR: Modeling Data",0,0,0,0,0,0,0,2,0,0,0,0,2,0,4,0,0,0
+"p20","n08","CDWR: Surface Water Conditions",0,0,0,0,0,0,0,0,0,0,2,0,2,0,0,0,0,0
+"p16","n37","CGS: Publications",0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,4,0,0
+"p18","n43","CO: Colorado Information Marketplace",1,1,3,3,0,0,2,2,0,2,2,0,2,0,4,0,0,4
+"p02","n06","COGCC: Colorado Oil and Gas Information System",0,0,0,3,0,0,0,2,0,0,0,0,0,0,0,4,0,0
+"p22","n06","COGCC: Data Downloads",1,0,0,3,0,0,0,2,0,0,0,0,0,0,0,4,0,0
+"p23","n06","COGCC: Reports Portal",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p40","n41","DOT: Regions Single POA Reports",1,0,0,3,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+"p42","n41","DOT: Wet Weather Monitoring Program",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p48","n33","PUC: Energy and Water Reports to the Legislature",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p39","n33","PUC: Utility Providers",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0

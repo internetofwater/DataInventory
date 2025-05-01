@@ -1,0 +1,31 @@
+"platformID","entityID","platform","Built","Natural","Quality","Regulatory","Evapotranspiration","ExtremeEvents","GlacialandSnow","Groundwater","Meteorology","Precipitation","Reservoir","Soil","SurfaceWater","Hydropower","Irrigation","Use","Utilities","ManagementPlans"
+"p39","n01","GeoHub: Wyoming Geospatial Hub",1,1,3,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0
+"p21","n12","SEO: Groundwater Hydrographs",0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p22","n12","SEO: Interference Investigations",1,0,0,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0
+"p20","n12","SEO: Order of the State Engineer - Laramie County Control Area",1,0,0,3,0,0,0,2,0,2,0,0,0,0,0,0,4,0
+"p17","n11","SEOFLOW: Realtime Stream Flow",0,0,3,0,0,0,2,0,2,2,2,0,2,4,0,0,0,0
+"p16","n16","SNOW: NOAA National Snow Analyses",0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0
+"p14","n16","SNOW: NRCS Snowdata and Reporting",0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0
+"p15","n16","SNOW: SEO Snowpack Report by Drainage",0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0
+"p12","n09","WDEQ: Authorized Permit Archive",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+"p06","n07","WDEQ: GEM Database",0,0,3,3,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p02","n07","WDEQ: Gillette-Madison Well Field Project",1,0,3,3,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p07","n07","WDEQ: Monitoring Data",0,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p08","n08","WDEQ: Nonpoint Source Projects",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p04","n07","WDEQ: Pavillion Investigation",0,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+"p10","n08","WDEQ: TMDL Completed Projects",0,0,3,3,0,0,0,0,2,2,0,2,0,0,0,0,0,0
+"p11","n08","WDEQ: Water Quality Assessment Reports",0,1,3,3,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+"p09","n08","WDEQ: Waterbody Assessment Reports",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p36","n20","WOGCC: WOGCC Data",0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+"p18","n16","WRDS: Products and Data",0,0,0,0,0,2,2,2,2,2,2,0,2,0,0,4,0,0
+"p35","n16","WRDS: Water Resources Data System Library",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p37","n21","WSGS: Groundwater Atlas of Wyoming",0,1,3,0,2,0,0,2,0,0,0,0,2,0,0,4,0,0
+"p38","n21","WSGS: Wyoming State Geological Survey Publications Sales And Free Downloads",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p23","n18","WWDO: Dam and Reservoir Planning",1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,4,0,0
+"p24","n18","WWDO: Instream Flow Filings",0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+"p32","n17","WWDO: Irrigation and Public Water System Surveys",0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4,0
+"p33","n17","WWDO: Legislative Reports",0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+"p27","n18","WWDO: Probable Maximum Precipitation",0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0
+"p28","n18","WWDO: Wyoming State Water Plans",0,0,0,0,0,0,0,0,0,0,0,0,2,4,4,0,4,4
+"p31","n17","WWDO: Wyoming Water and Climate Hub",1,1,0,3,0,2,2,2,2,2,0,0,2,0,0,0,0,0
+"p25","n18","WWDO: Wyoming Water and Climate Web Atlas",0,0,0,3,0,2,2,2,2,2,0,0,2,0,0,0,0,0

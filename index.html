@@ -1,0 +1,968 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>IoW Inventory</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="favicon.png">
+
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="apple-touch-icon" href="icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="css/vis.min.css">
+
+         <script  src="https://code.jquery.com/jquery-3.5.0.min.js"  integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
+        crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+               
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/vis.min.js"></script>
+        <script src="js/vendor/modernizr-3.5.0.min.js"></script>
+        <script src="js/CollapsibleLists.js"></script>
+
+        <script src="https://d3js.org/d3.v5.min.js"></script>           
+        <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
+
+
+        <style type="text/css">
+          tab1 { padding-left: 2em; }
+          .nav-tabs > li.active > a,
+          .nav-tabs > li.active > a:hover,
+          .nav-tabs > li.active > a:focus{
+              background-color: #5D6D7E;  
+              color: #AED6F1;
+              }
+      
+          .btn {
+                font-size: 16px;
+                line-height:25px;
+                margin-right: 10px; 
+                width: 120px;
+            }
+
+            .collapsible {
+                background-color: white;
+                border: none;
+                cursor: pointer;
+                outline: none;
+                padding: 5px;
+                text-align: left;
+              }
+
+              .collapsible, .active:
+              hover {
+                background-color: #E0E2E1;
+              }
+
+              li { margin: 10px; }
+
+              .collapsibleList li{
+                list-style-image : url('img/dropButton.png');
+                cursor           : auto;
+              }
+
+              li.collapsibleListOpen{
+                list-style-image : url('img/minusButton.png');
+                cursor           : pointer;
+              }
+
+              li.collapsibleListClosed{
+                list-style-image : url('img/plusButton.png');
+                cursor           : pointer;
+              }
+
+           select {text-align-last:center; }
+           body {overflow-x: hidden;}  /*gets rid of the horizontal scroll bar at the bottom
+        </style>
+</head>
+
+<body>
+  <div class="row" style="text-align: left; margin-top: 0px; margin-bottom: 0px; padding-bottom: -10px;">
+    <div class="col-sm-8">
+      <h1 style="padding-left: 1em; color: #0b3160">Inventory of Public Water Data</h1>    
+    </div>
+    <div class="col-sm-4" style="text-align: center;">
+      <a href="https://internetofwater.org/"><img src="img/iow_logo_horizontal_rgb.png" style="width: 170px; height: 64px; margin-top: 10px;"
+          title="IoW Logo"></a>
+    </div>
+  </div>
+      <hr style="background-color: #02145C; height: 4px;">
+  
+
+
+<script>
+//declare global variables
+var agency = "federal";
+var network;
+var allNodes;
+var highlightActive = false;
+
+// set selected variables
+var selectNode = "none"; 
+var selectData = "none";
+var cluster;
+var target = "#info";
+
+// set selected variables for network
+var selectHub = "none";
+var selectDiscover = "none";
+var selectDiscoverType = "none";
+var selectAccess = "none";
+var selectAccessType = "none";
+var selectFileType = "none";
+var selectMetadata = "none";
+var selectDataDef = "none";
+var selectTimely = "none";
+var selectLength = "none";
+
+//set boxplot to draw;
+var selectMetrics = "allTotal";
+var dataAgency = [];
+var checked = ["traceFed","traceAZ", "traceCA","traceCO", "traceNM","traceNC", "traceOR", "traceTX","traceUT", "traceWY"];
+//######################################################################
+</script>
+
+
+<!--#######################################################################################################
+                                    SELECTION ROW - CHANGE TO MAP...
+    ######################################################################################################-->
+<div class="row">
+  <div class="col-sm-12" id="selectedAgencyText" style="margin-left: 20px;">
+      <h2>Current Inventory Selected: <span style="color: #008078;"><strong>Federal</strong> (as of Nov 2018)</span></h2>
+  </div>
+</div>
+
+
+<!--#######################################################################################################
+                                    TAB SET UP
+    ######################################################################################################-->
+<div class="container-fluid" id="graphOptions" style="border: 0;">  <!--panel to filter and map divs-->
+  <div class="row" style="padding-top: 30px;">
+      <ul id="tabs" class="nav nav-tabs" data-tabs="tabs" style="font-size: 16px;">
+          <li class="active"><a href="#info" data-toggle="tab">Information</a></li>
+          <li><a href="#heirarchy" data-toggle="tab">Entities Collecting Water Data</a></li>
+          <li><a href="#network" data-toggle="tab">Water Data Platforms</a></li>
+          <li><a href="#metrics" data-toggle="tab">Summary of Water Data Collected</a></li>
+          <li><a href="#scorecard" data-toggle="tab">Openness Scorecard</a></li>
+      </ul>
+  </div>
+
+<div id="my-tab-content" class="tab-content clearfix">
+<!--#######################################################################################################
+                                   Heirarchy Tab
+    ######################################################################################################-->
+<div class="tab-pane" id="heirarchy" style="background-color: white;">
+  <div class="col-sm-12" style="padding-right: 80px; margin-left: 10px;"> 
+     <p style="font-family: verdana; font-size: 14px; padding-top: 20px;">
+       The network displays which entities are collecting water data, their mission, and the broad <u><a style= "color: #008078;" href="https://internetofwater.org/valuing-data/moving-towards-valuation-by-data-purpose/#Categorizing" target="_blank">purposes</a></u> for collecting those data.
+      <strong>Click</strong> on an entity to highlight their network. <strong>Select</strong> a data purpose to see which entities collect water data for those purposes. A table of selections is located below the network.
+     </p>
+  </div>
+
+  <div class = "row" style="margin-bottom: 0px; ">
+    <div class="col-sm-6" style="padding-left: 50px;"> 
+      <br>
+          <form name="selectAgency" style="color: black; width: 500px;"> <strong>Select an entity: &nbsp; &nbsp; </strong>
+            <select name="setAgency" id="setAgency" onchange="setAgencyThis(this);" style="width: 400px;">
+              <option selected = "selected" value="none"> None selected </option>
+            </select>  
+          </form>   
+    </div>
+
+    <div class="col-sm-6" style="padding-right: 80px; padding-left: 20px;"> 
+      <br>
+      <form name="setDataPurpose" style="color: black; width: 500px;"> <strong>Select a Data Purpose: &nbsp; &nbsp; </strong>
+            <select name="setData" id="setData" onchange="setDataThis(this);" style="width: 300px;">
+              <option selected = "selected" value="none"> No Purpose Selected </option>
+              <option value="operational"> Day-to-Day Operations </option>
+              <option value="decision"> Broad Scale Decision-Making </option>
+              <option value="regulatory"> Regulatory </option>
+              <option value="research"> Research and Innovation </option>
+            </select>  
+         </form>   
+    </div>
+  </div>
+
+    <div class="col-sm-12" id="heirPlot" style="height: 500px; margin-top: 40px; border: solid;"> </div>
+  <div class="col-sm-12" id="agencyTableHeader" style="margin-left: 0px; margin-top: 20px; margin-bottom: 0px;">
+    <h2><span style="color: #008078;">Public entities collecting water data based on drop-down selections:</span></h2>
+  </div>
+  <div class="col-sm-12" id="agencyTableDiv" style="height: 500px; margin-top: 0px; overflow: auto;">
+    <table>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="col-sm-12" style="height: 200px;"></div>
+</div> <!--end heirarchy-->
+<!--#######################################################################################################-->
+
+
+<!--#######################################################################################################
+                                   Water Data Connectivity
+    ######################################################################################################-->
+<div class="tab-pane" id="network">
+  <div class="col-sm-12" style="padding-right: 80px; margin-left: 10px;"> 
+     <p style="font-family: verdana; font-size: 14px; padding-top: 20px;">
+      The types of water data collected were categorized by the basic components of a <u><a style= "color: #008078;" href="https://internetofwater.org/data-stories/about-categories" target="_blank">water budget:</a></u> quantity, quality, and use. Water flows through infrastructure, both natural and built, which is included as an additional category. Types of water data were further sub-divided within each component of the water budget as defined here. This categorization is arbitrary and other categorizations may be used when creating an inventory.</p>
+
+
+      <button class="collapsible"><h2><span style="color: #008078;"><strong>Click</strong> to see water data categories </span></h2></button>
+      <table id="dataCategories" class="table-striped" style="display: none;">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Sub-category</th>
+            <th>Types of Data Included</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td rowspan="2" style="border-bottom: 1px solid black;"> Infrastructure </td>
+              <td style="border-bottom: 1px solid darkgray;"> Built </td>
+              <td style="border-bottom: 1px solid darkgray;"> Dams, levees, diversion locations, utility locations, wells, etc. </td>
+           <tr style="border-bottom: 1px solid black;">
+              <td> Natural </td>
+              <td> NHD, NHDplus, watershed boundaries, aquifer boundaries, wetlands, etc.</td>
+          </tr>
+          </tr>
+
+          <tr>
+            <td rowspan="2" style="border-bottom: 1px solid black;"> Water Quality </td>
+              <td style="border-bottom: 1px solid darkgray;"> Quality </td>
+              <td style="border-bottom: 1px solid darkgray;"> All constituent measurements for surface water and groundwater quality </td>
+           <tr style="border-bottom: 1px solid black;">
+              <td> Regulatory </td>
+              <td> 303d Assessment, facility permits, compliance, violations, and enforcement actions, TMDLs, regulated and unregulated contaminant occurrence, consumer confidence reports, etc.</td>
+          </tr>
+          </tr>
+
+           <tr>
+            <td rowspan="8" style="border-bottom: 1px solid black;"> Water Quantity </td>
+              <td style="border-bottom: 1px solid darkgray;"> Evapotranspiration </td>
+              <td style="border-bottom: 1px solid darkgray;"> Evaporation, evapotranspiration </td>
+
+              <tr>
+                <td style="border-bottom: 1px solid darkgray;"> Extreme Events </td>
+                <td style="border-bottom: 1px solid darkgray;"> Flood boundary maps and hazard layers, flood insurance rate maps, flood risk maps, Hazus, flood stage and frequency, Palmer drought indices, national drought map, etc.</td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom: 1px solid darkgray;"> Glacial and Snow </td>
+                <td style="border-bottom: 1px solid darkgray;"> Glacier extent and speed, ice sheet elevation, temperature, and thickness; snow depth, snow water equivalent, snowfall, etc.</td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom: 1px solid darkgray;"> Groundwater </td>
+                <td style="border-bottom: 1px solid darkgray;"> Depth to groundwater, flow, storage, etc.</td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom: 1px solid darkgray;"> Meteorology </td>
+                <td style="border-bottom: 1px solid darkgray;"> Air/Atmospheric temperature, relative and specific humidity, Wind speed and direction, etc.</td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom: 1px solid darkgray;"> Precipitation </td>
+                <td style="border-bottom: 1px solid darkgray;"> Amount, frequency, intensity</td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom: 1px solid darkgray;"> Soil </td>
+                <td style="border-bottom: 1px solid darkgray;"> Soil moisture and temperature, freeze/thaw/melt status</td>
+              </tr>
+
+              <tr>
+                <td style="border-bottom: 1px solid black;"> Surface Water </td>
+                <td style="border-bottom: 1px solid black;"> Stream stage and discharge, rating curves, streambed elevation, stream density and length, etc.</td>
+              </tr>
+          </tr>
+
+          <tr>
+            <td rowspan="5" style="border-bottom: 1px solid black;"> Water Use </td>
+              <td style="border-bottom: 1px solid darkgray;"> Hydropower </td>
+              <td style="border-bottom: 1px solid darkgray;"> Power generation; plant capacity, ownership, and type; potential capacity from non-powered dams and undeveloped streams, etc.</td>
+              <tr>
+                <td style="border-bottom: 1px solid darkgray;"> Irrigation </td>
+                <td style="border-bottom: 1px solid darkgray;"> Area irrigated and source; canal discharge, diversion, and stage; irrigation water applied, number of operations, water irrigation supply condition, etc.</td>
+              </tr>
+          <tr style="border-bottom: 1px solid darkgray;">
+              <td> Use </td>
+              <td> Water rights, water pumped, water use by sector, water supply source</td>
+          </tr>
+          <tr style="border-bottom: 1px solid darkgray;">
+              <td> Utilities </td>
+              <td> Quantity, quality, and use of water supplied by public municipalities, as well as domestic water usage</td>
+          </tr>
+          <tr style="border-bottom: 1px solid black;">
+              <td> Management Plans </td>
+              <td> Includes state and regional watershed, aquifer, and water supply management plans</td>
+          </tr>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+
+      <script>
+      var coll = document.getElementsByClassName("collapsible");
+      var i;
+
+      for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = document.getElementById("dataCategories");
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+      </script>
+
+    
+      <p style="font-family: verdana; font-size: 14px;"> A network was created to illustrate the types of data provided by different data platforms. The lines connecting data types with data platforms do not necessarily reflect sharing of data between entities. Rather, it shows which entities are collecting similar types of data. <br><br>
+
+      You can highlight entities and platforms in the network by <strong>selecting</strong> from the filter panel on the right. You may select by entity, data type, and openness metrics. A table of selected nodes will be created below the graph. See the <span style="color: #008078;">Openness Scorecard</span> tab for more details on openness metrics.</p>
+     <br>
+  </div> <!-- end intro column div-->
+
+  <div class="col-sm-7"  id="networkPlotLegend" style="height: 60px;"> <!--border= "solid"--> 
+    <canvas id="myCanvas" width="600" height="25"></canvas>
+    <script>
+      var c = document.getElementById("myCanvas");
+      //draw hub inventory box
+      var ctx = c.getContext("2d");
+      ctx.rect(70, 2, 18, 18);  //x,y,length, width
+        ctx.strokeStyle = "#454545";
+          ctx.stroke();
+        ctx.fillStyle = "lightgray";
+          ctx.fill();
+
+      //draw triangle
+      var path=new Path2D();
+          path.moveTo(200, 20);
+          path.lineTo(210, 2);
+          path.lineTo(220, 20);
+          path.lineTo(200,20);
+      ctx.fillStyle = "#A1C6D5";
+          ctx.fill(path);
+      ctx.strokeStyle = "navy";
+          ctx.stroke(path);
+
+       //draw triangle
+      var path2 =new Path2D();
+          path2.moveTo(310, 20);
+          path2.lineTo(320, 2);
+          path2.lineTo(330, 20);
+          path2.lineTo(310,20);
+      ctx.fillStyle = "purple";
+          ctx.fill(path2);
+      ctx.strokeStyle = "#BB8FCE";
+          ctx.stroke(path2);
+
+      //draw triangle
+      var path2 =new Path2D();
+          path2.moveTo(415, 20);
+          path2.lineTo(425, 2);
+          path2.lineTo(435, 20);
+          path2.lineTo(415,20);
+      ctx.fillStyle = "#138D75";
+          ctx.fill(path2);
+      ctx.strokeStyle = "#A2D9CE";
+          ctx.stroke(path2);
+
+
+      //draw start
+    function drawStar(cx, cy, spikes, outerRadius, innerRadius) {
+      var rot = Math.PI / 2 * 3;
+      var x = cx;
+      var y = cy;
+      var step = Math.PI / spikes;
+
+      ctx.strokeSyle = "#000";
+      ctx.beginPath();
+      ctx.moveTo(cx, cy - outerRadius)
+      for (i = 0; i < spikes; i++) {
+          x = cx + Math.cos(rot) * outerRadius;
+          y = cy + Math.sin(rot) * outerRadius;
+          ctx.lineTo(x, y)
+          rot += step
+
+          x = cx + Math.cos(rot) * innerRadius;
+          y = cy + Math.sin(rot) * innerRadius;
+          ctx.lineTo(x, y);
+          rot += step;
+      }
+      ctx.lineTo(cx, cy - outerRadius);
+      ctx.closePath();
+      //ctx.lineWidth=2;
+      ctx.strokeStyle='#E6B0AA';
+      ctx.stroke();
+      ctx.fillStyle='darkred';
+      ctx.fill();
+  }//end star function
+  drawStar(545, 12, 5, 11, 5);
+
+ </script>
+  <p style="font-family: verdana; font-size: 12px; padding-left: 30px; padding-top: 0px; "><strong>
+    Data Platform &nbsp; &nbsp; &nbsp; &nbsp; Data: Quantity &nbsp; &nbsp; Data: Quality  
+    &nbsp; &nbsp; Data: Use &nbsp; &nbsp; Data: Infrastructure</strong></p>
+  </div>   <!--end div class border: solid--> 
+
+<div class="row">
+  <div class="col-sm-7" id="networkPlot" style="height: 625px;"> </div>   <!--border: solid-->
+    <div class="col-sm-5" id="networkPlotFilter" style="height: 625px; padding-right: 15px; padding-left: 15 px;"> 
+      <!-- Form to select Data Access Point -->
+      <h2 style="color: #008078; margin-top: -5px;"> Filter network and create table</h2>
+      
+      <form style="color: black;"> <strong>Data platform: </strong>
+        <br>
+        <select name="setDataAccess" id="setDataAccess" onchange="setDataAccessThis(this);" style="font-size: 12px;">
+              <option selected = "selected" value="none"> None selected </option>
+        </select>  
+        </form> 
+        <br>
+
+      <!-- Form to select by Data Budget -->
+      <form style="color: black;"> <strong>Data category: &nbsp;  </strong>
+        <select name="setDataType" id="setDataType" onchange="setDataTypeThis(this);" style="font-size: 12px; width: 340px; ">
+              <option selected = "selected" value="none"> None selected </option>
+        </select>  
+       </form> 
+       <br>
+
+       <!-- Form to select by Data Discoverability -->
+      <h4 style="color: #008078;">Findability</h4>
+      <form style="color: black;"> <strong>Ease of finding data: &nbsp; </strong>
+        <select name="setDiscover" id="setDiscover" onchange="setDiscoverThis(this);" style="font-size: 12px; width: 290px;">
+              <option selected = "selected" value="none"> None selected </option>
+              <option value="No"> None: Data were not discoverable. </option>
+              <option value="Low"> Low: Data were held in multiple locations with no searchability. </option>
+              <option value="Medium"> Medium: Data were held in few locations with poor searchability.</option>
+              <option value="High"> High: Data were held in few locations with robust searchability.</option>              
+       </select>  
+       </form>
+       <br>
+
+      <!-- Form to select by Data Discoverability Type -->
+       <form style="color: black;"> <strong>Method for finding data: &nbsp; </strong>
+        <select name="setDiscoverType" id="setDiscoverType" onchange="setDiscoverTypeThis(this);" style="font-size: 12px; width: 270px;">
+              <option selected = "selected" value="none"> None selected </option>
+              <option value="Unknown"> Unknown: Data were not accessible without permission.</option>
+              <option value="Website"> Website: Users must navigate website links to discover data. </option>
+              <option value="Catalog"> Catalog: enables users to discover data through keywords. </option>
+              <option value="Map"> Map: enables users to discover data based on location. </option>
+       </select>  
+       </form> <br>
+
+      <!-- Form to select by Data Accessibility -->
+      <h4 style="color: #008078;">Accessibility</h4>
+      <form style="color: black;"> <strong>Ease of obtaining data: &nbsp; </strong>
+        <select name="setAccess" id="setAccess" onchange="setAccessThis(this);" style="font-size: 12px; width: 280px;">
+              <option selected = "selected" value="none"> None selected </option>
+              <option value="No"> Data were not publicly accessible. </option>
+              <option value="Permission"> Access requires permission, software, and/or training. </option>
+              <option value="Yes"> Data are publicly accessible.</option>
+        </select>  
+       </form>
+       <br>
+        
+        <!-- Form to select by Data Accessibility -->
+        <form style="color: black;"> <strong>How data are obtained: &nbsp; </strong>
+        <select name="setAccessType" id="setAccessType" onchange="setAccessTypeThis(this);" style="font-size: 12px; width: 280px;">
+              <option selected = "selected" value="none"> None selected </option>
+              <option value="Copy and Paste"> Data must be copied and pasted from html. </option>
+              <option value="Individual Export"> Data are downloaded one site, attribute, etc. at a time. </option>
+              <option value="Batch Export"> Data can be fully downloaded, or filtered and downloaded.</option>
+              <option value="FTP"> Data are obtained through FTP, File Transfer Protocol.</option>
+              <option value="Web Services"> Data are downloadable using web services.</option>
+              <option value="Link to Source"> Links to data producers or hubs hosting data are provided.</option>
+              <option value="Unknown"> Data are publicly not accessible.</option>
+        </select>  
+       </form><br>
+
+       <!-- Form to select by Data Usability -->
+      <h4 style="color: #008078;"> Interoperability & Reusability</h4>
+      <form style="color: black;"> <strong>File type: &nbsp; </strong>
+        <select name="setFileType" id="setFileType" onchange="setFileTypeThis(this);" style="font-size: 12px; width: 370px;">
+              <option selected = "selected" value="none"> None selected </option>
+            <optgroup label = "Open Source Machine Readable Files">
+              <option value="ascii"> ASCII: American Standard Code Information Interchange </option>
+              <option value="csv"> CSV: Comma-Separated Values </option>
+              <option value ="hdf5"> HDF5: Heirarchical Data Format </option>
+              <option value="html"> HTML: Hypertext Markup Language </option>             
+              <option value="json"> JSON: JavaScript Object Notification </option>
+              <option value="netCDF"> NetCDF: Network Common Data Form </option>
+              <option value="rdf"> RDF: Resource Description Framework </option>
+              <option value="txt"> TXT: Text file </option>
+              <option value="xml"> XML: Extensible Markup Language </option>
+            </optgroup>
+
+            <optgroup label = "Proprietary Machine Readable Files">
+              <option value="access"> Microsoft Access </option>
+              <option value="excel"> Microsoft Excel </option>
+              <option value="raster"> Raster </option>
+              <option value="shapefile"> Shapefile </option>
+            </optgroup>
+
+            <optgroup label = "Non-machine Readable Files">
+              <option value="image"> Image (png, jpeg, tiff...) </option>
+              <option value="pdf"> PDF: Adobe Portable Document Format </option>
+              <option value="zip"> Data contained within a zip file </option>
+              <option value="software specific"> Data are formatted for a specific software </option>
+            </optgroup>
+              <option value="Unknown"> Data are not publicly accessible or links to other sources </option>
+        </select>  
+       </form>
+       <br>
+
+      <!-- Form to select by metadata-->
+      <form style="color: black;"> <strong>Data definitions: &nbsp; </strong>
+        <select name="setDataDef" id="setDataDef" onchange="setDataDefThis(this);" style="font-size: 12px; width: 305px;">
+              <option selected = "selected" value="none"> None selected </option>
+              <option value="No"> No data definitions, dictionaries, or glossaries found </option>
+              <option value="Some"> Some data had definitions, dictionaries, or glossaries </option>
+              <option value="Yes"> All data had data definitions, dictionaries, or glossaries </option>
+        </select>  
+       </form><br>
+
+        <form style="color: black;"> <strong>Metadata types: &nbsp; </strong>
+        <select name="setMetadata" id="setMetadata" onchange="setMetadataThis(this);" style="font-size: 12px; width: 305px;">
+              <option selected = "selected" value="none"> None selected </option>
+              <option value="No"> No metadata found </option>
+              <option value="Administrative"> Administrative metadata </option>
+              <option value="Descriptive"> Descriptive metadata </option>
+              <option value="Structural"> Structural metadata </option>
+        </select>  
+       </form><br>
+
+       <!-- Form to select by timeliness-->
+        <form style="color: black;"> <strong>Update frequency: &nbsp; </strong>
+        <select name="setTimely" id="setTimely" onchange="setTimelyThis(this);" style="font-size: 12px; width: 305px;">
+              <option selected = "selected" value="none"> None selected </option>
+              <option value="Daily or Higher"> Data updated minutely, hourly, or daily </option>
+              <option value="Monthly or Higher"> Data updated weekly or monthly </option>
+              <option value="Yearly or Higher"> Data updated at least annually </option>
+              <option value="Irregular"> Data updated irregularly </option>
+              <option value="Unknown"> Update frequency is unknown </option>
+        </select>  
+       </form><br>
+
+       <form style="color: black;"> <strong>Length of data available: &nbsp; </strong>
+        <select name="setAvailable" id="setAvailable" onchange="setAvailableThis(this);" style="font-size: 12px; width: 305px;">
+              <option selected = "selected" value="none"> None selected </option>
+              <option value="Unknown"> The data were not accessible </option>
+              <option value="Current Only"> Only a current snapshot of data are provided </option>
+              <option value="Limited Record"> Only a portion of the data are provided </option>
+              <option value="Period of Record"> All available data provided </option>
+        </select>  
+       </form><br>
+  
+    </div> <!-- end networkPlotFilter div-->
+    </div> <!-- end row div-->
+
+    <div class="col-sm-12" id="dataTableHeader" style="margin-left: 0px; margin-top: 20px; margin-bottom: 0px;">
+      <h2><span style="color: #008078;">Water data platforms based on drop-down menu selections </span></h2>
+    </div>
+    <div class="col-sm-12" id="nodeTableDiv" style="height: 500px; margin-top: 0px; overflow: auto;">
+      <table>
+        <tbody id="tbody2"></tbody>
+      </table>
+    </div>
+
+    <div class="col-sm-12" style="height: 200px;"></div>
+</div> <!-- end network tab div-->
+
+<!--#######################################################################################################-->
+
+
+<!--#######################################################################################################
+                                   Hub Metrics
+    ######################################################################################################-->
+<div class="tab-pane" id="metrics">
+<div class="row">
+   <div class="col-sm-12" style="padding-right: 80px; margin-left: 10px;"> 
+     <p style="font-family: verdana; font-size: 14px; padding-top: 20px;"> The heat map shows which types of water data (rows) can be found at each data platform (columns). The bar charts below summarize the frequency of data collection (sums the rows of the heat map) and which data platforms provide the greatest variety of water-related data (sums the columns of the heat map).</p> 
+    </div>
+
+  <div class="col-sm-12" style="margin: 0px;"> 
+    <h2><span style="color: #008078;">Heat map showing who provides what data</span></h2>
+  </div>
+  <div class="col-sm-12" id="heatMapPlot" style="height: 500px; margin-top: 0px;"> </div>   <!--border: solid-->
+</div>
+
+  <div class="row" style="margin-top: 40px;">
+    <div class="col-sm-4">  <h2><span style="color: #008078;">What types of data are most often collected?</span></h2> </div>
+    <div class="col-sm-8"> <h2><span style="color: #008078;">Which platforms provide the greatest variety of water-related data?</span></h2></div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4" id="dataBarPlot" style="height: 400px;"></div>
+    <div class="col-sm-8" id="hubBarPlot" style= "height: 400px;"></div>
+  </div>
+<div class="row" style="height: 200px;"></div>
+</div> <!--end network div-->
+
+<!--#######################################################################################################-->
+
+
+<!--#######################################################################################################
+                                   Information
+    ######################################################################################################-->
+<!--div class="tab-pane active" id="info"-->
+<div class="tab-pane active" id="info">
+<div class = "row">
+  <div class="col-sm-12">
+    <p style="font-family: verdana; font-size: 14px; padding-top: 20px;"> The <u><a style= "color: #008078;" href="https://internetofwater.org/about/values/" target="_blank">mission</a></u> of the Internet of Water is to build a dynamic and voluntary network of communities and institutions to facilitate the opening, sharing, and integration of water data and information. This network will connect data producers, hubs, and users to enable the discovery, accessibility, and usability of water data and information.
+      <br><br>
+    A team of students has been inventorying federal and state governments to understand what water data are currently collected and how those data are discovered, accessed, and made usable. These inventories are quickly outdated and are meant to represent a fairly informed public data user's experience.</p> 
+    <ul style="font-family: verdana; font-size: 14px; padding-left: 50px; padding-right: 80px;">
+      <li> <span style="color: #008078;"><strong><em>Entities Collecting Water Data</em></strong></span> shows the organizational network of public entities collecting water data and the primary purpose(s) of collecting those data.
+      </li>
+      <li> <span style="color: #008078; margin-top: 10px;"><strong><em>Water Data Platforms</em></strong></span> shows which entities are collecting similar types of water data. The network can be filtered by data findability, accessibility, and interoperability metrics.
+      </li>
+      <li> <span style="color: #008078;"><strong><em>Summary of Water Data Collected</em></strong></span> highlight which data types are collected by which entities, the types of data most often collected, and which entities provide access to the greatest variety of water data.
+      </li>
+       <li> <span style="color: #008078;"><strong><em>Openness Scorecard</em></strong></span> provide a relative score to compare how findable, accessible, interoperable and reusable (FAIR) data are within and across inventories. This scoring can be used as a template for self-diagnostic tools and understanding how to improve openness.
+      </li>
+    </ul>
+
+  <p style="font-family: verdana; font-size: 14px; padding-top: 20px;"> The methods, template, and data are all available for download at the bottom of the website. The inventory is a living document and may be periodically updated.</p>     
+  </div>
+</div>
+
+<div class="row" style="height: 500px;">
+  <div class= "col-sm-4" style="text-align: center;">
+    <br><br><br><br>
+    <h3> <span style="color: #008078;"><strong>Select an inventory and click on the above tabs to see results: </strong></span></h3>
+      <br>
+   <form name="selectPublicAgency" style="color: black; font-size: 18px;">
+          <select name="setPublicAgency" id="setPublicAgency" style="width: 300px;" onchange="setPublicAgencyThis(this);">
+            <option selected = "selected" value="federal"><strong>Federal Government</strong></option>
+            <optgroup label = "State Governments">
+              <option value="az"> Arizona</option>
+              <option value="ca"> California</option>
+              <option value="co"> Colorado</option>
+              <option value="nm"> New Mexico</option>
+              <option value="nc"> North Carolina</option>
+              <option value="or"> Oregon</option>
+              <option value="tx"> Texas</option>
+              <option value="ut"> Utah</option>
+              <option value="wy"> Wyoming</option>
+            </optgroup>
+          </select>  
+     </form>  
+    </div>
+
+  <div class= "col-sm-8"  style="text-align: center;">  
+     <img src="img/State-Inventory.png" style="width: 600px; height: 388px;">
+  </div>  
+
+</div>
+</div> <!--end network div-->
+
+
+
+
+
+<!--#######################################################################################################-->
+<div class="tab-pane" id="scorecard">
+  <div class="row" style="margin: 10px;">
+    <p style="font-family: verdana; font-size: 14px; padding-top: 10px;"> 
+        Data discoverability, accessibility, and usability were categorized and scored from low to high with the assumption that maximum openness (being able to find, download all data, and link to similar data) was the ideal. Note that usability is weighted more heavily than discoverability and accessibility. Scoring is as follows (click on plus icon or text to expand lists):<br><br>
+
+      </p>
+        <ul id="newList" class="collapsibleList" style="font-family: verdana; font-size: 14px; padding-left: 50px; padding-right: 80px;">
+          <li> <span style="color: #008078; font-size: 18px">Findability</span> considers whether data were easy to discover within an entities website.
+          <ul>
+             <li> <span style="color: #008078;">Ease of finding data:</span> Data are not discoverable (0), are not searchable (1), have some searchability (2), have robust searchability (3). 
+             </li>
+             <li> <span style="color: #008078;">Method for finding data:</span> Unknown (0), clicking on web links (1), catalog (2), and/or on a map (2). Sometimes multiple methods of discoverability were used. We took the mean score.
+             </li>
+          </ul>
+        </li>
+       
+          <li> <span style="color: #008078; font-size: 18px; margin-top: 10px;"> Accessibility</span> considers how easy it is to access all the data. 
+          <ul>
+             <li> <span style="color: #008078;">Ease of obtaining data:</span> Data are not accessible (0), data require permission, software, or training (not guaranteed access) (1), registration is required with guaranteed access (2), or data are fully accessible (3).
+             </li>
+             <li> <span style="color: #008078;">Method for obtaining data:</span> Unknown (0), links to the data source or copy and paste (1), individual export (2), batch or full export (3), ftp (4), and/or web services (5). The sum of the scores were normalized by the number of methods provided to access data. If a platform links directly to the data, the download method was included; however, if it is a general link requiring a fresh search, the score remains 1.
+             </li>
+          </ul>
+        </li>
+
+        <li> <span style="color: #008078; font-size: 18px; margin-top: 10px;"> Interoperability and Reusability </span> considers how easy it is to put the data to immediate use for different purposes. 
+          <ul>
+             <li> <span style="color: #008078;">File type:</span> Data are unknown (0), data are not machine readable (eg. pdf, jpg) (1), data may be machine readable (zip), data are machine readable with proprietary software (eg. excel, word, shapefile) (3), data are machine readable with open software (eg., json, csv, txt) (5). The maximum score was taken when multiple file formats were present.
+             </li>
+             <li> <span style="color: #008078;">Data dictionary:</span> Data dictionary was not found (0), some data had a dictionary (1), all data had a dictionary (2).
+             </li>
+             <li> <span style="color: #008078;">Metadata are present:</span> Metadata presence was unknown or not found (0), metadata were provided in a non-machine readable format (1), metadata were machine readable with proprietary software (2), or metadata were machine readable with open software (3).
+             </li>
+             <li> <span style="color: #008078;">Metadata types:</span> Metadata were not available (0), administrative metadata provided (1), descriptive metadata provided (1), and/or structural metadata provided (1). The score is the sum of the metadata types provided.
+             </li>
+             <li> <span style="color: #008078;">Metadata standards:</span> Metadata presence was unknown or not found, or metadata standards not listed (0), some data provided the metadata standard used (1), all data provided the metadata standard used (2).
+             </li>
+             <li> <span style="color: #008078;">Frequency of data udpates:</span> The frequency of updates is unknown (0), irregular (1), yearly or higher (2), monthly or higher (3), and/or daily or higher (4). This assumes that high update frequency is the ideal, which is not the case of all data types or purposes. The maximum score was used when multiple update frequencies were present.
+             </li>
+             <li> <span style="color: #008078;">Length of data available:</span> Unknown (0), not applicable to data type (1), current data only (2), limited record available (3), and/or period of record available (4). This assumes that the full record of data is ideal, which is often not the case for operational purposes. The maximum score was used when multiple lengths of record were present.
+             </li>
+          </ul>
+        </li>
+    </ul>
+ <script> CollapsibleLists.applyTo(document.getElementById('newList')); </script>
+
+  <p style="font-family: verdana; font-size: 14px; padding-top: 20px;"> 
+    All scores were made relative to the maximum available score such that 0 is the lowest, and 100 the highest, score possible. Select a metric to see how different entities performed within and across inventories. <br><br>
+    This inventory provides one method for assessing data FAIRness (Findable, Accessible, Interoperable, and Reusable). Another method for assessing FAIRNESS is provided by the <a href="https://github.com/FAIRMetrics/Metrics">FAIR metrics group</a> and could also be adopted and used in a public water data inventory.
+  </p>
+  </div><!--end description div-->
+
+  <div class="row">
+    <div class="col-sm-3" style="margin-top: 4px;"> <h3 style="color: #008078; margin-top: 0px;"> Select metrics to display:</h3></div>
+    <div class="col-sm-9">
+      <form style="color: black; font-size: 14px; margin-top: -10px;"> <br>
+        <select name="setMetricDraw" id="setMetricDraw" onchange="setMetricsThis(this);" style="width: 400px;">
+              <option selected = "selected" value="allTotal"> Total score </option>
+              <optgroup label= "Findability"> 
+                <option value="discoverTotal"> Total findability score </option>
+                <option value="easeDiscover">  Ease of finding data </option>
+                <option value="methodDiscover"> Method of finding data </option>
+              </optgroup>
+               <optgroup label= "Accessibility"> 
+                <option value="accessTotal"> Total accessibility score </option>
+                <option value="easeAccess">  Ease of obtaining data </option>
+                <option value="methodAccess"> Method to obtain data </option>
+              </optgroup>
+              <optgroup label= "Interoperability & Reusability"> 
+                <option value="usableTotal"> Total interoperability & reusability score </option>
+                <option value="formatUse"> File type </option>
+                <option value="dataDefn"> Data glossary </option>
+                <option value="metaAttribs"> Metadata types </option>
+                <option value="metaStandard"> Metadata standards </option>
+                <option value="timeUse"> Timeliness </option>
+                <option value="lengthUse"> Length of data available </option>
+              </optgroup>
+        </select>  
+        </form> 
+        <br>
+    </div><!-- end drop down menu div-->
+  </div> <!-- end row-->
+
+  <div class="row" style="margin-bottom: 0px;">
+    <div class="col-sm-12" id="titleAgencyScores" style="margin: 0px;">
+      <h4 style="background-color: #008078; color: #dbdbdb; margin-top: 0px; padding: 5px;"><strong> Platform Scores by Entity</strong></h4>
+    </div>
+    <div class="col-sm-12" id="agencyScores" style="margin-top: 0px;"></div>
+  </div>
+
+  <div class="row" style="margin-bottom: 0px; margin-left: 5px;">
+    <div class="col-sm-2" id="selectStatesScoreTitle">
+      <h4 style= "background-color: #008078; color: #dbdbdb; text-align: center; padding: 3px;"><strong>Select Inventories</strong></h4>
+    </div>
+    <div class="col-sm-5" id="inventoryScoresTitle" >
+      <h4 style= "background-color: #008078; color: #dbdbdb; text-align: center; padding: 3px;"><strong>Compare Inventory Scores</strong></h4>
+    </div>
+    <div class="col-sm-5" id="barInventoryScoresTitle">
+      <h4 style= "background-color: #008078; color: #dbdbdb; text-align: center; padding: 3px;"><strong>Overall Inventory Scores</strong></h4>
+    </div>
+  </div>
+
+  <div class="row" style= "margin-left: 5px;">
+    <div class="col-sm-2" id="selectStatesScore">
+      <form name = "checkInventory" id = "checkInventory" style="color: black; font-size: 14px;">
+            <input name="checkState" onclick="createTraceInventory(this.value)" value="traceFed" type="checkbox" checked> Federal <br>  
+            <input name="checkState" onclick="createTraceInventory(this.value)" value="traceAZ" type="checkbox" checked> Arizona <br>  
+            <input name="checkState" onclick="createTraceInventory(this.value)" value="traceCA" type="checkbox" checked> California <br>  
+            <input name="checkState" onclick="createTraceInventory(this.value)" value="traceCO" type="checkbox" checked> Colorado <br>  
+            <input name="checkState" onclick="createTraceInventory(this.value)" value="traceNM" type="checkbox" checked> New Mexico <br>
+            <input name="checkState" onclick="createTraceInventory(this.value)" value="traceNC" type="checkbox" checked> North Carolina <br>  
+            <input name="checkState" onclick="createTraceInventory(this.value)" value="traceOR" type="checkbox" checked> Oregon <br>  
+            <input name="checkState" onclick="createTraceInventory(this.value)" value="traceTX" type="checkbox" checked> Texas <br>
+            <input name="checkState" onclick="createTraceInventory(this.value)" value="traceUT" type="checkbox" checked> Utah <br>     
+            <input name="checkState" onclick="createTraceInventory(this.value)" value="traceWY" type="checkbox" checked> Wyoming <br>     
+        </form>
+
+    </div>
+    <div class="col-sm-5" id="inventoryScores"></div>
+    <div class="col-sm-5" id="barInventoryScores"></div>
+  </div>
+<div class="row" id="scoreTableHeader" style="margin-left: 5px; margin-top: 15px;">
+  <h2><span style="color: #008078;"> Scores for data findability, accessibility, and interoperability</span></h2></div>
+<div class="row" id="scoreTableDiv" style="height: 500px; margin-top: 0px; overflow: auto; text-align: center; margin-left: 5px; margin-right: 5px;">
+   <table>
+      <tbody id="tbodyScore"></tbody>
+    </table>
+</div>
+<div class="row" style="height: 200px;"></div>
+</div> <!--end scorecard div-->
+
+<!--#######################################################################################################-->
+</div><!--end my tab content-->
+</div><!-- end container-->
+
+
+
+
+<script>
+//resizes panels
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    target=$(e.target).attr("href");
+    //console.log(target);
+      if(target=="#heirarchy")  { 
+          var canvas = document.getElementById('agencyTableDiv');
+             canvas.innerHTML="";
+          var header = document.getElementById("agencyTableHeader");
+            header.innerHTML = "<h2><span style='color: #008078;'>Public entities collecting water data based on drop-down menu selections</span></h2>";
+
+
+        document.getElementById('setAgency').options.length = 1;
+         //populate agency drop down menu
+        d3.csv("data/"+agency+"/orgNodes.csv").then(function(data) {
+            var sel = document.getElementById('setAgency').options;
+            //data.sort(function(a,b) { return d3.ascending(a.entity, b.entity); });
+            data.sort(function (a,b) {
+            if(a.tier1and2entity == b.tier1and2entity) { return (a.entity < b.entity) ? -1 : (a.entity > b.entity) ? 1 : 0; }
+            else { return (a.tier1and2entity < b.tier1and2entity) ? -1 : 1;}
+          });
+
+            for(i=0; i< data.length; i++) {
+                opts = document.getElementById('setAgency');
+                opts.options.add(new Option(data[i].tier1and2entity + ": " + data[i].entity, data[i].entityID));
+
+              } 
+              
+          });
+          agencyNetwork(agency);
+          }
+
+     if(target=="#network")  { 
+        drawDataNetwork(agency, selectHub, selectDiscover, selectDiscoverType, selectAccess, selectAccessType, selectFileType, selectDataDef,
+        selectMetadata, selectTimely, selectLength);
+
+           //populate data access point drop down menu
+        document.getElementById('setDataAccess').options.length = 1;
+        document.getElementById('setDataType').options.length = 1;
+
+        d3.csv("data/"+agency+"/platformNodes.csv").then(function(hubs) {
+          hubs.sort(function (a,b) {
+            if(a.webLabel == b.webLabel) { return (a.platform < b.platform) ? -1 : (a.platform > b.platform) ? 1 : 0; }
+            else { return (a.webLabel < b.webLabel) ? -1 : 1;}
+          });
+
+          for(i=0; i< hubs.length; i++) {
+             opts = document.getElementById('setDataAccess');
+             opts.options.add(new Option(hubs[i].webLabel + ": " + hubs[i].platform, hubs[i].platformID));
+          } 
+        });//endD3
+       
+              //population for data types
+        d3.csv("data/"+agency+"/dataNodes.csv").then(function(types) {
+          types.sort(function (a,b) {
+            if(a.dataCategory == b.dataCategory) { return (a.dataGroup < b.dataGroup) ? -1 : (a.dataGroup > b.dataGroup) ? 1 : 0; }
+            else { return (a.dataCategory < b.dataCategory) ? -1 : 1;}
+          });
+
+          for(i=0; i< types.length; i++) {
+              opts = document.getElementById('setDataType');
+              opts.options.add(new Option(types[i].dataCategory + ": " + types[i].dataGroup, types[i].dataID));
+          } // end for 
+        });//endD3
+      } // end network
+
+      if(target=="#metrics")  { 
+         heatMapMetrics(agency);
+      }
+
+      if(target=="#scorecard"){
+        createBoxplot(agency, selectMetrics, checked);
+      }
+return target;
+});
+
+</script>
+
+
+<!--   DOWNLOAD DATA######################################################################### -->
+<div class="row" style= "padding-top: 5px;">
+    <div class="col-sm-12" id="internal_footer" style="color: black; font-size: 14px; padding-left: 50px;">
+        <p style="text-align: left;"> The data in this visualization tool can be downloaded here: &emsp; 
+            <td><select name="downloadLayer" id="downloadLayer" onchange="setDownload(this);">
+                <option selected = "selected" value="None"> Select download </option>
+                <option value="metadata_DataInventory"> Metadata </option>
+                <option value="XX_DataInventory"> Template for Data Inventory </option>
+                <option value="Federal_DataInventory"> Federal Water Data Inventory</option>  
+                <option value="AZ_DataInventory"> Arizona Water Data Inventory</option>  
+                <option value="CA_DataInventory"> California Water Data Inventory</option>  
+                <option value="CO_DataInventory"> Colorado Water Data Inventory</option>  
+                <option value="NM_DataInventory"> New Mexico Water Data Inventory</option>  
+                <option value="NC_DataInventory"> North Carolina Water Data Inventory</option>  
+                <option value="OR_DataInventory"> Oregon Water Data Inventory</option>  
+                <option value="TX_DataInventory"> Texas Water Data Inventory</option>  
+                <option value="UT_DataInventory"> Utah Water Data Inventory</option>  
+                <option value="WY_DataInventory"> Wyoming Water Data Inventory</option>  
+                <option value="scorecard"> Openness Scores</option>  
+            </select></td>  
+        </p>
+        <br><br><br>
+    </div> <!--internal footer div-->  
+</div>               
+
+<a id="downloadAnchorElem" style="display:none"></a>
+<script>
+//Function to grab period
+function setDownload(target) {
+    toDownload = document.getElementById('downloadLayer').value; 
+       var dlAnchorElem = document.getElementById('downloadAnchorElem');
+       if(toDownload==="metadata_DataInventory" | toDownload==="XX_DataInventory"){
+          dlAnchorElem.setAttribute("href",     "data/templates/"+toDownload+".xlsx");
+          dlAnchorElem.setAttribute("download", toDownload+".xlsx");
+          dlAnchorElem.click();
+        }
+
+       if(toDownload==="scorecard"){
+          dlAnchorElem.setAttribute("href",     "data/"+toDownload+".csv");
+          dlAnchorElem.setAttribute("download", toDownload+".csv");
+          dlAnchorElem.click();
+        }
+
+        if(toDownload==="Federal_DataInventory" | toDownload==="AZ_DataInventory" | toDownload==="CA_DataInventory" | toDownload==="CO_DataInventory" | toDownload==="NM_DataInventory" | toDownload==="NC_DataInventory" | toDownload == "OR_DataInventory" | toDownload==="TX_DataInventory" | toDownload==="UT_DataInventory" | toDownload==="WY_DataInventory"){
+          dlAnchorElem.setAttribute("href",     "data/excelInventories/"+toDownload+".xlsx");
+          dlAnchorElem.setAttribute("download", toDownload+".xlsx");
+          dlAnchorElem.click();
+        }
+
+} //end setDownload
+</script>
+
+
+
+ <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+        <script>
+            window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date;
+            ga('create','UA-XXXXX-Y','auto');ga('send','pageview');
+        </script>
+        <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+        <script type="text/javascript" src="scripts/selectFunctions.js"></script>
+        <script type="text/javascript" src="scripts/heirarchy.js"></script>
+        <script type="text/javascript" src="scripts/heirarchy_dropdowns.js"></script>
+        <script type="text/javascript" src="scripts/dataNetwork.js"></script>
+        <script type="text/javascript" src="scripts/metrics.js"></script>
+        <script type="text/javascript" src="scripts/createBoxplots.js"></script>
+    </body>
+</html>
+
+
+

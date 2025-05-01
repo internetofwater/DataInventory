@@ -1,0 +1,65 @@
+platformID,entityID,platform,Built,Natural,Quality,Regulatory,Evapotranspiration,ExtremeEvents,GlacialandSnow,Groundwater,Meteorology,Precipitation,Reservoir,Soil,SurfaceWater,Hydropower,Irrigation,Use,Utilities,ManagementPlans
+p02,n43,AGRC: State Geographic Information Database,1,1,3,0,0,2,0,0,0,0,2,0,0,0,4,4,0,0
+p01,n43,AGRC: Utah Open Data Catalog,1,1,3,0,0,2,0,2,0,0,2,0,0,0,4,4,0,0
+p63,n45,Climate Center: Agweather,0,0,0,0,2,0,0,0,2,2,0,0,0,0,0,0,0,0
+p64,n45,Climate Center: Climate Data,0,0,0,0,2,0,2,0,2,2,0,0,0,0,0,0,0,0
+p62,n45,Climate Center: Cloud Seeding,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0
+p22,n11,Health-Data Informatics: Drinking Water,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+p23,n11,Health-Data Informatics: Flood events,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+p05,n03,UDAF-Conservation Division: Groundwater Program,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p06,n03,UDAF-Conservation Division: Harmful Algal Blooms,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p04,n03,UDAF-Conservation Division: Salinity Control Forum,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p03,n02,UDAF: Annual Report Archive,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p11,n08,UDEQ-Drinking Water: Waterlink Database,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+p21,n10,UDEQ-Environmental Response: Spills records,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p12,n09,UDEQ-Water Quality: Ambient Water Quality Monitoring System (AWQMS ),0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p15,n09,UDEQ-Water Quality: Assessment Map,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+p16,n09,UDEQ-Water Quality: Assessment Report,0,0,3,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p18,n09,UDEQ-Water Quality: E. coli in Utah Waters,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p19,n09,UDEQ-Water Quality: Harmful Algal Blooms,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p14,n09,UDEQ-Water Quality: UPDES Permitting Program,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p20,n09,UDEQ-Water Quality: Utah Lake WQ Network,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p13,n09,UDEQ-Water Quality: Water Quality Permits,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p17,n09,UDEQ-Water Quality: Waterfowl Consumption Advisories,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p09,n07,UDEQ: Environmental Interactive Map,1,1,3,3,0,0,0,2,0,0,0,0,0,0,4,4,4,0
+p10,n07,UDEQ: Regulatory/Policy Documents,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p50,n29,UDNR-Adjudication Program: Adjudication Status,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,4,0,4
+p31,n16,UDNR-Conservation Program: Weather Data,0,0,0,0,2,0,0,0,2,2,0,0,0,0,4,0,0,0
+p47,n27,UDNR-Dam Safety: Dam Safety Database Information Viewer,1,0,0,0,0,0,0,0,0,0,2,0,0,0,0,4,0,0
+p48,n27,UDNR-Dam Safety: Reservoir Levels,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0
+p39,n25,UDNR-Distribution Program: Colorado River Conditions,0,0,0,0,0,2,0,0,2,0,2,0,0,0,0,0,0,0
+p36,n25,UDNR-Distribution Program: Company Rights,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,0
+p38,n25,UDNR-Distribution Program: GAGEVIEW Stream Gage Records Viewer,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0
+p37,n25,UDNR-Distribution Program: Realtime Distribution System,0,0,0,0,0,0,2,0,2,2,2,0,2,0,0,0,0,0
+p34,n25,UDNR-Distribution Program: Water Distribution/Regulation,0,0,0,3,0,0,0,0,0,0,0,0,2,0,0,4,0,4
+p35,n25,UDNR-Distribution Program: Water Use Data by Suppliers,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,4,0
+p51,n30,UDNR-Enforcement Program: Regulation Database,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p60,n37,UDNR-FFSL: Comprehensive River plans,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0,4
+p56,n36,UDNR-Geological Survey: Geothermal Well & Spring Database,1,0,3,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0
+p55,n36,UDNR-Geological Survey: Groundwater Monitoring Data Portal,0,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+p57,n36,UDNR-Geological Survey: Groundwater Quality Publications,0,0,3,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+p58,n36,UDNR-Geological Survey: Groundwater Recharge and Discharge Maps,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,4
+p59,n36,UDNR-Geological Survey: Utah Wetlands,0,1,3,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0
+p32,n17,UDNR-Project Funding Program: Board Projects,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p49,n28,UDNR-Stream Alteration Program: Stream Alteration Permit Viewer,0,0,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p52,n35,UDNR-UDOGM: Cumulative Hydrologic Impact Assessment,1,0,3,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0
+p53,n35,UDNR-UDOGM: Data Explorer,1,1,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+p54,n35,UDNR-UDOGM: Data Research Center,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+p29,n14,UDNR-Water Resources: Drought,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
+p24,n14,UDNR-Water Resources: Open Tap: Utah's Water Data Directory,1,1,0,0,0,0,0,0,0,0,0,0,0,0,4,4,4,4
+p25,n14,UDNR-Water Resources: Precipitation Graphs,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0
+p27,n14,UDNR-Water Resources: Regional Water Conservation Goals,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+p26,n14,UDNR-Water Resources: Reservoir Levels,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0
+p28,n14,UDNR-Water Resources: Water Reports,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4
+p30,n14,UDNR-Water Resources: Water Use and Streamflow Records,0,0,0,0,2,0,2,2,2,2,0,0,2,0,0,0,4,0
+p33,n23,UDNR-Water Rights: Water Rights Maps,1,1,0,3,0,0,0,2,0,0,0,0,0,0,4,4,0,4
+p43,n26,UDNR-Well Drilling Program: DRILVIEW Water Well Driller Licensing Viewer,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p45,n26,UDNR-Well Drilling Program: Geologic Logs for Wells,1,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+p46,n26,UDNR-Well Drilling Program: Ground Level Trend Viewer,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+p40,n26,UDNR-Well Drilling Program: Groundwater Management Plans,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,4,0,4
+p41,n26,UDNR-Well Drilling Program: Groundwater Recharge and Recovery,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0
+p42,n26,UDNR-Well Drilling Program: Water Well Drilling Information,1,0,3,3,0,0,0,2,0,0,0,0,0,0,0,4,0,0
+p44,n26,UDNR-Well Drilling Program: Well Drilling Statstics,1,0,3,3,0,0,0,2,0,0,0,0,0,0,0,4,0,0
+p07,n05,UDOC-Public Utilities Division: Locate Utility Company,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+p08,n05,UDOC-Public Utilities Division: Water Utilities,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4,0
+p61,n39,UDPS-Emergency Management: Utah Disaster History,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0
