@@ -88,17 +88,28 @@
 </head>
 
 <body>
-  <div class="row" style="text-align: left; margin-top: 0px; margin-bottom: 0px; padding-bottom: -10px;">
-    <div class="col-sm-8">
-      <h1 style="padding-left: 1em; color: #0b3160">Inventory of Public Water Data</h1>    
+  <div id="dataInventoryHeader">
+    <div class="row" style="text-align: left; margin-top: 0px; margin-bottom: 0px; padding-bottom: -10px;">
+      <div class="col-sm-8">
+        <h1 style="padding-left: 1em; color: #0b3160">Inventory of Public Water Data</h1>    
+      </div>
+      <div class="col-sm-4" style="text-align: center;">
+        <a href="https://internetofwater.org/"><img src="img/iow_logo_horizontal_rgb.png" style="width: 170px; height: 64px; margin-top: 10px;"
+            title="IoW Logo"></a>
+      </div>
     </div>
-    <div class="col-sm-4" style="text-align: center;">
-      <a href="https://internetofwater.org/"><img src="img/iow_logo_horizontal_rgb.png" style="width: 170px; height: 64px; margin-top: 10px;"
-          title="IoW Logo"></a>
-    </div>
+    <hr style="background-color: #02145C; height: 4px;">
   </div>
-      <hr style="background-color: #02145C; height: 4px;">
-  
+  <script>
+  if (window.self !== window.top) {
+    // Page is inside an iframe
+    document.addEventListener("DOMContentLoaded", function () {
+      var div = document.getElementById("dataInventoryHeader");
+      if (div) div.style.display = "none";
+    });
+  }
+</script>
+
 
 
 <script>
